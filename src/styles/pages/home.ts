@@ -13,9 +13,23 @@ export const HeroContainer = styled("div", {
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
-  backgroundColor: "$purple200",
+  background: `url(/bg-image.png)`,
+  backgroundPosition: "center",
+  backgroundRepeat: "no-repeat",
+  backgroundSize: "cover",
   borderRadius: "$md",
   margin: "2rem",
+  position: "relative",
+});
+
+export const Overlay = styled("div", {
+  position: "absolute",
+  bottom: 0,
+  left: 0,
+  width: "100%",
+  height: "100%",
+  opacity: 0.5,
+  background: "$gray700",
 });
 
 export const LoginContainer = styled("section", {

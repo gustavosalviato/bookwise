@@ -3,6 +3,7 @@ import {
   HeroContainer,
   LoginContainer,
   LoginContent,
+  Overlay,
 } from "@/styles/pages/home";
 import Image from "next/image";
 
@@ -10,6 +11,7 @@ export default function Home() {
   return (
     <HomeContainer>
       <HeroContainer>
+        <Overlay />
         <Image src="/bookwise.svg" width={200} height={50} alt="" />
       </HeroContainer>
 
