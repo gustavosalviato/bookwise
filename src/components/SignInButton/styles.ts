@@ -1,3 +1,4 @@
+import { isBoxedPrimitive } from "util/types";
 import { styled } from "../../styles";
 
 export const ContainerButton = styled("button", {
@@ -18,4 +19,13 @@ export const ContainerButton = styled("button", {
   svg: {
     color: "$green100",
   },
+});
+
+export const ImageProfile = styled("img", {
+  width: "3.2rem",
+  height: "3.2rem",
+  borderRadius: "999px",
+  boxSizing: "initial",
+  border: "2px solid",
+  borderColor: "$purple200",
 });
