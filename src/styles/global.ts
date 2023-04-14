@@ -9,6 +9,7 @@ export const globalStyles = globalCss({
 
   html: {
     fontSize: "62.5%",
+    overflowX: 'hidden'
   },
 
   body: {

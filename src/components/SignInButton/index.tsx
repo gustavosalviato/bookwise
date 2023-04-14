@@ -3,7 +3,7 @@ import { SignIn } from "phosphor-react";
 export function SignInButton() {
   return (
     <ContainerButton>
-      Fazer Login
+      Fazer login
       <SignIn size={20} />
     </ContainerButton>
   );

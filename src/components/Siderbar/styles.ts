@@ -2,14 +2,18 @@ import { styled } from "../../styles";
 
 export const SidebarContainer = styled("aside", {
   display: "flex",
+  width: "100%",
+  minHeight: `100vh`,
   flexDirection: "column",
   alignItems: "center",
   maxWidth: "23.2rem",
-  width: "100%",
   borderRadius: "12px",
   background: `url(./sidebar-bg.png)`,
-  margin: "2rem 1.6rem",
+  backgroundRepeat: "no-repeat",
+  backgroundPosition: "center",
+  backgroundSize: "cover",
   paddingTop: "4.8rem",
+  marginTop: "2rem",
 
   "> div": {
     display: "flex",

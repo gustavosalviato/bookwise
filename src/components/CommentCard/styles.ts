@@ -62,7 +62,7 @@ export const BodyContent = styled("div", {
   "> p": {
     marginTop: "2rem",
     color: "$gray300",
-    fontSize: "1.4rem",
+    fontSize: "1.6rem",
     lineHeight: "$base",
     overflow: "hidden",
     textOverflow: "ellipsis",
