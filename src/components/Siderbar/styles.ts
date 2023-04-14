@@ -22,6 +22,11 @@ export const SidebarContainer = styled("aside", {
       fontWeight: "bold",
     },
   },
+
+  "> button": {
+    marginTop: "auto",
+    marginBottom: "2.4rem",
+  },
 });
 
 export const NavContainer = styled("nav", {

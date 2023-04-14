@@ -2,6 +2,7 @@ import { SidebarContainer, NavContainer } from "./styles";
 import Image from "next/image";
 import { ActiveLink } from "../ActiveLink";
 import { ChartLineUp, Binoculars, Icon } from "phosphor-react";
+import { SignInButton } from "../SignInButton";
 export function Sidebar() {
   return (
     <SidebarContainer>
@@ -22,6 +23,8 @@ export function Sidebar() {
           <ActiveLink path="/explore" title="Explorar" />
         </div>
       </NavContainer>
+
+      <SignInButton />
     </SidebarContainer>
   );
 }

@@ -2,6 +2,7 @@
   "name": "bookwise",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -10,8 +11,8 @@
   },
   "dependencies": {
     "@next/font": "13.3.0",
+    "@prisma/client": "^4.12.0",
     "@stitches/react": "^1.2.8",
-    "@types/node": "18.15.11",
     "@types/react": "18.0.35",
     "@types/react-dom": "18.0.11",
     "eslint": "8.38.0",
@@ -21,5 +22,11 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "typescript": "5.0.4"
+  },
+  "devDependencies": {
+    "@types/node": "^18.15.11",
+    "prisma": "^4.12.0",
+    "ts-node": "^10.9.1",
+    "typescritp": "^1.0.0"
   }
 }
