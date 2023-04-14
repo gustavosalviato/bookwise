@@ -4,10 +4,10 @@ import {
   LoginContainer,
   LoginContent,
   Overlay,
-} from "@/styles/pages/home";
+} from "@/styles/pages/login";
 import Image from "next/image";
 
-export default function Home() {
+export default function Login() {
   return (
     <HomeContainer>
       <HeroContainer>
