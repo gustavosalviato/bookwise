@@ -11,8 +11,10 @@ import { ChartLineUp } from "phosphor-react";
 import { CommentCard } from "@/components/CommentCard";
 import { CaretRight } from "phosphor-react";
 import { BookCard } from "@/components/BookCard";
+import { LastReadings } from "@/components/LastReadings";
 
 export default function Home() {
+  const isSignIn = true;
   return (
     <HomeContainer>
       <HomeScreenShape>
@@ -22,6 +24,8 @@ export default function Home() {
           <span>
             <ChartLineUp size={32} /> Início
           </span>
+
+          {isSignIn && <LastReadings />}
 
           <p>Avaliações mais recentes</p>
 
