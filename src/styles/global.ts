@@ -9,13 +9,14 @@ export const globalStyles = globalCss({
 
   html: {
     fontSize: "62.5%",
-    overflowX: 'hidden'
+    overflowX: "hidden",
   },
 
   body: {
     backgroundColor: "$gray800",
     color: "$gray100",
     "-webkit-font-smoothing": "antialiased",
+    lineHeight: "$base",
   },
 
   "body, input, textarea, button": {

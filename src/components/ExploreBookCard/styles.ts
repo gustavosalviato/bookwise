@@ -1,5 +1,5 @@
 import { styled } from "@/styles";
-
+import * as Dialog from "@radix-ui/react-dialog";
 export const ExploreBookCardContainer = styled("div", {
   display: "flex",
   gap: "1.2rem",
@@ -7,7 +7,9 @@ export const ExploreBookCardContainer = styled("div", {
   backgroundColor: "$gray700",
   borderRadius: "8px",
 
-  cursor: "pointer",
+  button: {
+    all: "unset",
+  },
 
   "> div": {
     display: "flex",
@@ -29,4 +31,9 @@ export const ExploreBookCardContainer = styled("div", {
 export const Image = styled("img", {
   width: "10.8rem",
   height: "15.2rem",
+});
+
+export const Trigger = styled(Dialog.Trigger, {
+  all: "unset",
+  cursor: "pointer",
 });

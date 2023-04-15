@@ -19,7 +19,6 @@ export const InputTextContainer = styled("div", {
     svg: {
       color: "$green200",
     },
-  
   },
 });
 
@@ -28,7 +27,6 @@ export const Input = styled("input", {
   backgroundColor: "transparent",
   border: 0,
   outline: "0",
-  fontSize: "1.4rem",
   color: "$gray100",
 
   "&::placeholder": {
