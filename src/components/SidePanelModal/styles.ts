@@ -174,3 +174,70 @@ export const CloseButton = styled("button", {
     filter: "brightness(0.8)",
   },
 });
+
+export const UserCommentItem = styled("div", {
+  backgroundColor: "$gray700",
+  borderRadius: "6px",
+  padding: "2.4rem",
+  marginTop: "1.6rem",
+
+  header: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+
+  img: {
+    width: "4rem",
+    height: "4rem",
+
+    borderRadius: "999px",
+    boxSizing: "initial",
+    border: "1px solid $purple100",
+  },
+});
+
+export const UserInfo = styled("div", {
+  display: "flex",
+  alignItems: "center",
+  gap: "1.6rem",
+});
+
+export const TextArea = styled("textarea", {
+  border: 0,
+  backgroundColor: "$gray800",
+  width: "100%",
+  borderRadius: "8px",
+  marginTop: "2.4rem",
+  outline: 0,
+  padding: "1.6rem 2rem",
+  resize: "none",
+  color: "$gray200",
+  height: "13.6rem",
+
+  "&::placeholder": {
+    color: "$gray400",
+  },
+});
+
+export const SectionActions = styled("div", {
+  display: "flex",
+  justifyContent: "end",
+  gap: "0.8rem",
+
+  button: {
+    all: "unset",
+    backgroundColor: "$gray600",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    padding: "0.8rem",
+    borderRadius: "4px",
+    cursor: " pointer",
+    transition: "all 300ms ease-in-out",
+
+    "&:hover": {
+      filter: "brightness(0.8)",
+    },
+  },
+});
