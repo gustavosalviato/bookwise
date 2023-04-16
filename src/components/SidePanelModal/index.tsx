@@ -16,11 +16,11 @@ import {
   ProfileInfo,
   CloseButton,
 } from "./styles";
-
 import Image from "next/image";
 
 import { RatingScore } from "../RatingScore/styles";
 import { BookmarkSimple, BookOpen, X } from "phosphor-react";
+import { SignInModal } from "../SignInModal";
 export function SidePanelModal() {
   return (
     <Dialog.Portal>
@@ -82,8 +82,13 @@ export function SidePanelModal() {
           <CommentsSection>
             <header>
               <p>Avaliações</p>
+              <Dialog.Root>
+                <Dialog.Trigger asChild>
+                  <button>Avaliar</button>
+                </Dialog.Trigger>
 
-              <button>Avaliar</button>
+                <SignInModal />
+              </Dialog.Root>
             </header>
 
             <CommentItem>
