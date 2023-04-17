@@ -9,7 +9,7 @@ export const ExploreScreenShape = styled("div", {
   display: "flex",
   maxWidth: "144rem",
   margin: "0 auto",
-  padding: "1.6rem",
+  padding: "0 1.6rem",
 });
 
 export const ExploreContent = styled("main", {

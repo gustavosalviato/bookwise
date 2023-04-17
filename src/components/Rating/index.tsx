@@ -1,11 +1,9 @@
 import { Star } from "phosphor-react";
 import { useState } from "react";
-import { convertToObject } from "typescript";
 
 interface RatingProps {
   size: number;
   rating: number;
-  // color?: "filled" | "unfilled";
   onRating: (rating: number) => void;
 }
 
