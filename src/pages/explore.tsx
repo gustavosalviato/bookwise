@@ -1,6 +1,7 @@
 import { ExploreBookCard } from "@/components/ExploreBookCard";
 import { InputText } from "@/components/InputText";
 import { Sidebar } from "@/components/Siderbar";
+import { api } from "@/libs/axios";
 import {
   CategoriesSection,
   ExploreContainer,
@@ -10,8 +11,23 @@ import {
   CategoryItem,
   ExploreBookGrid,
 } from "@/styles/pages/explore";
-import { Binoculars } from "phosphor-react";
-export default function Explore() {
+import { GetStaticProps } from "next";
+import { Binoculars, Divide } from "phosphor-react";
+
+interface ExploreProps {
+  books: Array<{
+    id: string;
+    name: string;
+    author: string;
+    cover_url: string;
+    ratings: Array<{
+      id: string;
+      rate: number;
+    }>;
+  }>;
+}
+
+export default function Explore({ books }: ExploreProps) {
   return (
     <ExploreContainer>
       <ExploreScreenShape>
@@ -36,15 +52,22 @@ export default function Explore() {
             <CategoryItem>Tudo</CategoryItem>
           </CategoriesSection>
           <ExploreBookGrid>
-            <ExploreBookCard />
-            <ExploreBookCard />
-            <ExploreBookCard />
-            <ExploreBookCard />
-            <ExploreBookCard />
-            <ExploreBookCard />
+            {books.map((book) => {
+              return <ExploreBookCard book={book} key={book.id} />;
+            })}
           </ExploreBookGrid>
         </ExploreContent>
       </ExploreScreenShape>
     </ExploreContainer>
   );
 }
+
+export const getStaticProps: GetStaticProps = async () => {
+  const response = await api.get("/books");
+
+  return {
+    props: {
+      books: response.data.books,
+    },
+  };
+};

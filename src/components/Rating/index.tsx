@@ -10,7 +10,6 @@ interface RatingProps {
 export function Rating({ rating, size, onRating }: RatingProps) {
   const [hoverRating, setHoverRating] = useState(0);
 
-  console.log(hoverRating);
 
   function getColor(el: number): string {
     if (hoverRating >= el) {

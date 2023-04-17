@@ -2,7 +2,7 @@ import { Star, StarHalf } from "phosphor-react";
 import { RatingContainer } from "./style";
 
 interface RatingScoreProps {
-  rating: number;
+  rating: number ;
   size?: number;
 }
 

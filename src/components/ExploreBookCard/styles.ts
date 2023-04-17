@@ -6,6 +6,7 @@ export const ExploreBookCardContainer = styled("div", {
   padding: "1.6rem 2rem",
   backgroundColor: "$gray700",
   borderRadius: "8px",
+  width: "100%",
 
   button: {
     all: "unset",

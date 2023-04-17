@@ -25,12 +25,49 @@ import Image from "next/image";
 import { RatingScore } from "../RatingScore/styles";
 import { BookmarkSimple, BookOpen, Check, X } from "phosphor-react";
 import { SignInModal } from "../SignInModal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Rating } from "../Rating";
-export function SidePanelModal() {
+
+interface BookRatings {
+  id: string;
+  rate: number;
+  description: string;
+  created_at: string;
+  user: {
+    avatar_url: string;
+    name: string;
+  };
+}
+
+interface IDetails {
+  id: string;
+  name: string;
+  author: string;
+  summary: string;
+  cover_url: string;
+  total_pages: number;
+  categories: Array<{
+    category: {
+      name: string;
+    };
+  }>;
+  ratings: Array<{
+    rate: number;
+    description: string;
+    created_at: string;
+  }>;
+}
+
+interface SidePanelModalProps {
+  details: IDetails;
+  bookRatings: BookRatings[];
+}
+export function SidePanelModal({ details, bookRatings }: SidePanelModalProps) {
   const [showCommentArea, setShowCommentArea] = useState(false);
   const [rating, setRating] = useState(0);
   const IsSignIn = true;
+
+  const lastRating = details?.ratings?.length > 0 ? details.ratings[0].rate : 0;
 
   return (
     <Dialog.Portal>
@@ -44,22 +81,15 @@ export function SidePanelModal() {
 
           <BookDetail>
             <BookInfo>
-              <Image
-                src="/books/o-hobbit.png"
-                alt=""
-                width={170}
-                height={240}
-              />
+              <Image src={details?.cover_url} alt="" width={170} height={240} />
 
               <DetailContent>
-                <Title>
-                  14 Hábitos de Desenvolvedores Altamente Produtivos
-                </Title>
-                <p>Zeno Rocha</p>
+                <Title>{details?.name}</Title>
+                <p>{details?.author}</p>
 
                 <RatingSection>
-                  <RatingScore />
-                  <p>3 avaliações</p>
+                  <RatingScore rating={lastRating} />
+                  <p>{details?.ratings?.length} avaliações</p>
                 </RatingSection>
               </DetailContent>
             </BookInfo>
@@ -73,7 +103,15 @@ export function SidePanelModal() {
                 <div>
                   <p>Categoria</p>
 
-                  <strong>Computação, educação</strong>
+                  <div>
+                    {details.categories?.map((category) => {
+                      return (
+                        <strong key={category.category.name}>
+                          {category.category.name}{" "}
+                        </strong>
+                      );
+                    })}
+                  </div>
                 </div>
               </AboutSection>
 
@@ -83,7 +121,7 @@ export function SidePanelModal() {
                 <div>
                   <p>Páginas</p>
 
-                  <strong>160</strong>
+                  <strong>{details.total_pages}</strong>
                 </div>
               </AboutSection>
             </About>
@@ -119,7 +157,7 @@ export function SidePanelModal() {
                 </header>
 
                 <TextArea placeholder="Escreva sua avaliação" />
- 
+
                 <SectionActions>
                   <button>
                     <X size={24} color="#8381D9" />
@@ -130,24 +168,25 @@ export function SidePanelModal() {
                 </SectionActions>
               </UserCommentItem>
             )}
-            <CommentItem>
-              <header>
-                <ProfileInfo>
-                  <ProfileImage src="https://github.com/gustavosalviato.png" />
-                  <div>
-                    <strong>Brandon Botosh</strong>
-                    <p>Há 2 dias</p>
-                  </div>
-                </ProfileInfo>
-                <RatingScore />
-              </header>
+            {bookRatings?.map((bookRating) => {
+              return (
+                <CommentItem key={bookRating.id}>
+                  <header>
+                    <ProfileInfo>
+                      <ProfileImage src={bookRating.user.avatar_url} />
+                      <div>
+                        <strong>{bookRating.user.name}</strong>
+                        <p>{bookRating.created_at}</p>
+                      </div>
+                    </ProfileInfo>
 
-              <p className="comment">
-                Nec tempor nunc in egestas. Euismod nisi eleifend at et in
-                sagittis. Penatibus id vestibulum imperdiet a at imperdiet
-                lectus leo. Sit porta eget nec vitae sit vulputate eget
-              </p>
-            </CommentItem>
+                    <RatingScore rating={bookRating.rate} />
+                  </header>
+
+                  <p className="comment">{bookRating.description}</p>
+                </CommentItem>
+              );
+            })}
           </CommentsSection>
         </Content>
       </Overlay>
