@@ -9,15 +9,6 @@ export const CommentCardContainer = styled("div", {
     display: "flex",
     alignItems: "start",
     justifyContent: "space-between",
-
-    img: {
-      width: "4rem",
-      height: "4rem",
-      borderRadius: "999px",
-      border: "2px solid",
-      borderColor: "$purple200",
-      boxSizing: "initial",
-    },
   },
 });
 
@@ -31,7 +22,6 @@ export const ProfileContainer = styled("span", {
   },
 
   "> p": {
-    marginTop: "0.8rem",
     color: "$gray400",
     fontSize: "1.4rem",
   },
@@ -40,6 +30,16 @@ export const ProfileContainer = styled("span", {
 export const AvatarContainer = styled("div", {
   display: "flex",
   gap: "1.6rem",
+
+  "> img": {
+    width: "4rem",
+    height: "4rem",
+    borderRadius: "999px",
+    border: "2px solid",
+    borderColor: "$purple200",
+    boxSizing: "initial",
+    objectFit: "fill",
+  },
 });
 
 export const CardBody = styled("main", {

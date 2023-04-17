@@ -39,7 +39,7 @@ export const MainContainer = styled("main", {
   },
 });
 
-export const MyBooksContainer = styled("section", {
+export const RatingsContainer = styled("section", {
   display: "flex",
   flexDirection: "column",
   gap: "1.2rem",

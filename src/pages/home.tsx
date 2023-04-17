@@ -2,7 +2,7 @@ import { Sidebar } from "@/components/Siderbar";
 import {
   HomeContainer,
   MainContainer,
-  MyBooksContainer,
+  RatingsContainer,
   TrendingBooks,
   SectionTitle,
   HomeScreenShape,
@@ -12,9 +12,29 @@ import { CommentCard } from "@/components/CommentCard";
 import { CaretRight } from "phosphor-react";
 import { BookCard } from "@/components/BookCard";
 import { LastReadings } from "@/components/LastReadings";
+import { GetStaticProps } from "next";
+import { api } from "@/libs/axios";
 
-export default function Home() {
-  const isSignIn = true;
+interface HomeProps {
+  ratings: Array<{
+    id: string;
+    rate: number;
+    description: string;
+    created_at: string;
+    book: {
+      name: string;
+      author: string;
+      cover_url: string;
+    };
+    user: {
+      name: string;
+      avatar_url: string;
+    };
+  }>;
+}
+
+export default function Home({ ratings }: HomeProps) {
+  const isSignIn = false;
   return (
     <HomeContainer>
       <HomeScreenShape>
@@ -29,16 +49,11 @@ export default function Home() {
 
           <p>Avaliações mais recentes</p>
 
-          <MyBooksContainer>
-            <CommentCard />
-            <CommentCard />
-            <CommentCard />
-            <CommentCard />
-            <CommentCard />
-            <CommentCard />
-            <CommentCard />
-            <CommentCard />
-          </MyBooksContainer>
+          <RatingsContainer>
+            {ratings.map((rating) => {
+              return <CommentCard key={rating.id} rating={rating} />;
+            })}
+          </RatingsContainer>
         </MainContainer>
 
         <TrendingBooks>
@@ -59,3 +74,14 @@ export default function Home() {
     </HomeContainer>
   );
 }
+
+export const getStaticProps: GetStaticProps = async () => {
+  const response = await api.get("/ratings");
+
+  return {
+    props: {
+      ratings: response.data.ratings,
+    },
+    revalidate: 1 * 60 * 60 * 24,
+  };
+};

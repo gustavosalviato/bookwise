@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { use } from "react";
 import { RatingScore } from "../RatingScore/styles";
 import {
   CommentCardContainer,
@@ -8,17 +9,37 @@ import {
   BodyContent,
 } from "./styles";
 
-export function CommentCard() {
+interface IRating {
+  id: string;
+  rate: number;
+  description: string;
+  created_at: string;
+  book: {
+    name: string;
+    author: string;
+    cover_url: string;
+  };
+  user: {
+    name: string;
+    avatar_url: string;
+  };
+}
+
+interface CommentCardProps {
+  rating: IRating;
+}
+
+export function CommentCard({ rating }: CommentCardProps) {
   return (
     <CommentCardContainer>
       <header>
         <AvatarContainer>
-          <img src="https://github.com/gustavosalviato.png" alt="" />
+          <img src={rating.user.avatar_url} alt="" />
 
           <ProfileContainer>
-            <h3>Jaxson Dias</h3>
+            <h3>{rating.user.name}</h3>
 
-            <p>Hoje</p>
+            <p>{rating.created_at}</p>
           </ProfileContainer>
         </AvatarContainer>
 
@@ -27,32 +48,17 @@ export function CommentCard() {
 
       <CardBody>
         <Image
-          src="/books/domain-driven-design.png"
+          src={rating.book.cover_url}
           alt=""
           width={108}
           height={152}
           quality={100}
         />
         <BodyContent>
-          <strong>O Hobbit</strong>
-          <span>J.R.R Tolkien</span>
+          <strong>{rating.book.name}</strong>
+          <span>{rating.book.author}</span>
 
-          <p>
-            Semper et sapien proin vitae nisi. Feugiat neque integer donec et
-            aenean posuere amet ultrices. Cras fermentum id pulvinar varius leo
-            a in. Amet libero pharetra nunc elementum fringilla velit ipsum. Sed
-            vulputate massa velit nibh Semper et sapien proin vitae nisi.
-            Feugiat neque integer donec et Semper et sapien proin vitae nisi.
-            Feugiat neque integer donec et aenean posuere amet ultrices. Cras
-            fermentum id pulvinar varius leo a in. Amet libero pharetra nunc
-            elementum fringilla velit ipsum. Sed vulputate massa velit nibh
-            Semper et sapien proin vitae nisi. Feugiat neque integer donec et
-            Semper et sapien proin vitae nisi. Feugiat neque integer donec et
-            aenean posuere amet ultrices. Cras fermentum id pulvinar varius leo
-            a in. Amet libero pharetra nunc elementum fringilla velit ipsum. Sed
-            vulputate massa velit nibh Semper et sapien proin vitae nisi.
-            Feugiat neque integer donec et
-          </p>
+          <p>{rating.description}</p>
         </BodyContent>
       </CardBody>
     </CommentCardContainer>
