@@ -1,23 +1,33 @@
 import Image from "next/image";
 import { RatingScore } from "../RatingScore/styles";
-import { BookCardContainer, CarBody } from "./styles";
+import { BookCardContainer, CardBody } from "./styles";
 
-export function BookCard() {
+interface IBook {
+  id: string;
+  name: string;
+  author: string;
+  cover_url: string;
+  ratings: Array<{
+    id: string;
+    rate: number;
+  }>;
+}
+
+interface BookCarProps {
+  book: IBook;
+}
+
+export function BookCard({ book }: BookCarProps) {
   return (
     <BookCardContainer>
-      <Image
-        src="/books/historias-extraordinarias.png"
-        alt=""
-        width={64}
-        height={94}
-      />
+      <Image src={book?.cover_url} alt={book?.name} width={64} height={94} />
 
-      <CarBody>
-        <strong>A revolução dos bichos</strong>
-        <p>George Orwell</p>
+      <CardBody>
+        <strong>{book?.name}</strong>
+        <p>{book?.author}</p>
 
-        <RatingScore />
-      </CarBody>
+        <RatingScore rating={book?.ratings[0]?.rate} />
+      </CardBody>
     </BookCardContainer>
   );
 }

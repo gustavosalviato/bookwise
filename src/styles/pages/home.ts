@@ -66,7 +66,7 @@ export const SectionTitle = styled("div", {
     fontSize: "1.4rem",
   },
 
-  "> button": {
+  "> a": {
     all: "unset",
     display: "flex",
     alignItems: "center",

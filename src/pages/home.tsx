@@ -14,6 +14,7 @@ import { BookCard } from "@/components/BookCard";
 import { LastReadings } from "@/components/LastReadings";
 import { GetStaticProps } from "next";
 import { api } from "@/libs/axios";
+import Link from "next/link";
 
 interface HomeProps {
   ratings: Array<{
@@ -31,9 +32,20 @@ interface HomeProps {
       avatar_url: string;
     };
   }>;
+
+  books: Array<{
+    id: string;
+    name: string;
+    author: string;
+    cover_url: string;
+    ratings: Array<{
+      id: string;
+      rate: number;
+    }>;
+  }>;
 }
 
-export default function Home({ ratings }: HomeProps) {
+export default function Home({ ratings, books }: HomeProps) {
   const isSignIn = false;
   return (
     <HomeContainer>
@@ -60,15 +72,15 @@ export default function Home({ ratings }: HomeProps) {
           <SectionTitle>
             <p>Livros populares</p>
 
-            <button>
+            <Link href="/explore">
               Ver todos
               <CaretRight size={16} weight="bold" />
-            </button>
+            </Link>
           </SectionTitle>
 
-          <BookCard />
-          <BookCard />
-          <BookCard />
+          {books.map((book) => {
+            return <BookCard book={book} key={book.id} />;
+          })}
         </TrendingBooks>
       </HomeScreenShape>
     </HomeContainer>
@@ -76,11 +88,13 @@ export default function Home({ ratings }: HomeProps) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const response = await api.get("/ratings");
+  const ratingsResponse = await api.get("/ratings");
+  const booksResponse = await api.get("/books");
 
   return {
     props: {
-      ratings: response.data.ratings,
+      ratings: ratingsResponse.data.ratings,
+      books: booksResponse.data.books,
     },
     revalidate: 1 * 60 * 60 * 24,
   };

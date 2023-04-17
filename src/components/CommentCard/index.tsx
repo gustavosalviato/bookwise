@@ -43,7 +43,7 @@ export function CommentCard({ rating }: CommentCardProps) {
           </ProfileContainer>
         </AvatarContainer>
 
-        <RatingScore />
+        <RatingScore rating={rating.rate} />
       </header>
 
       <CardBody>

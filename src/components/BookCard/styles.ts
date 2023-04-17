@@ -13,7 +13,16 @@ export const BookCardContainer = styled("div", {
   },
 });
 
-export const CarBody = styled("div", {
+export const CardBody = styled("div", {
+  "> strong": {
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+    display: "-webkit-box",
+    "-webkit-box-orient": "vertical",
+    "-webkit-line-clamp": 4,
+    lineHeight: "$short",
+  },
+
   "> p": {
     lineHeight: "$base",
     fontSize: "1.4rem",
