@@ -132,6 +132,14 @@ export const CommentItem = styled("div", {
     marginTop: "2rem",
     color: "$gray300",
   },
+
+  variants: {
+    user: {
+      true: {
+        backgroundColor: "$gray600",
+      },
+    },
+  },
 });
 
 export const ProfileImage = styled("img", {
@@ -175,7 +183,7 @@ export const CloseButton = styled("button", {
   },
 });
 
-export const UserCommentItem = styled("div", {
+export const UserCommentItem = styled("form", {
   backgroundColor: "$gray700",
   borderRadius: "6px",
   padding: "2.4rem",

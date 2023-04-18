@@ -46,7 +46,8 @@ interface BookRatings {
   created_at: string;
   image: string;
   user: {
-    avatar_url: string;
+    id: string;
+    image: string;
     name: string;
   };
 }
@@ -71,6 +72,10 @@ export function ExploreBookCard({ book }: ExploreBookCardProps) {
     getRatingsOnBook();
   }, [bookDetails.id]);
 
+  async function handleOnRegister(data: BookRatings) {
+    setBookRatings((prevState) => [...prevState, data]);
+  }
+
   return (
     <Dialog.Root>
       <Trigger>
@@ -87,7 +92,11 @@ export function ExploreBookCard({ book }: ExploreBookCardProps) {
         </ExploreBookCardContainer>
       </Trigger>
 
-      <SidePanelModal details={bookDetails} bookRatings={bookRatings} />
+      <SidePanelModal
+        details={bookDetails}
+        bookRatings={bookRatings}
+        onRegister={handleOnRegister}
+      />
     </Dialog.Root>
   );
 }

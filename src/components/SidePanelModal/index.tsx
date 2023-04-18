@@ -24,18 +24,21 @@ import Image from "next/image";
 import { RatingScore } from "../RatingScore/styles";
 import { BookmarkSimple, BookOpen, Check, X } from "phosphor-react";
 import { SignInModal } from "../SignInModal";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import { Rating } from "../Rating";
 import { useSession } from "next-auth/react";
 
 import moment from "moment";
+import { api } from "@/libs/axios";
 
-interface BookRatings {
+interface IBookRatings {
   id: string;
   rate: number;
   description: string;
   created_at: string;
+  image: string;
   user: {
+    id: string;
     image: string;
     name: string;
   };
@@ -62,15 +65,37 @@ interface IDetails {
 
 interface SidePanelModalProps {
   details: IDetails;
-  bookRatings: BookRatings[];
+  bookRatings: IBookRatings[];
+  onRegister: (data: IBookRatings) => void;
 }
-export function SidePanelModal({ details, bookRatings }: SidePanelModalProps) {
+export function SidePanelModal({
+  details,
+  bookRatings,
+  onRegister,
+}: SidePanelModalProps) {
   const [showCommentArea, setShowCommentArea] = useState(false);
   const [rating, setRating] = useState(0);
+  const [comment, setComment] = useState("");
 
   const session = useSession();
 
   const lastRating = details?.ratings?.length > 0 ? details.ratings[0].rate : 0;
+
+  async function handleSubmit(event: FormEvent) {
+    event.preventDefault();
+    console.log("entrou");
+    const response = await api.post("/ratings", {
+      rate: rating,
+      description: comment,
+      user_id: session.data?.user.id,
+      book_id: details.id,
+    });
+
+    onRegister(response.data);
+    setShowCommentArea(false);
+    setRating(0);
+    setComment("");
+  }
 
   return (
     <Dialog.Portal>
@@ -148,7 +173,7 @@ export function SidePanelModal({ details, bookRatings }: SidePanelModalProps) {
               </Dialog.Root>
             </header>
             {showCommentArea && (
-              <UserCommentItem>
+              <UserCommentItem onSubmit={handleSubmit}>
                 <header>
                   <UserInfo>
                     <img src={session.data?.user?.image!} alt="" />
@@ -159,13 +184,20 @@ export function SidePanelModal({ details, bookRatings }: SidePanelModalProps) {
                   <Rating size={5} rating={rating} onRating={setRating} />
                 </header>
 
-                <TextArea placeholder="Escreva sua avaliação" />
+                <TextArea
+                  value={comment}
+                  onChange={(e) => setComment(e.target.value)}
+                  placeholder="Escreva sua avaliação"
+                />
 
                 <SectionActions>
-                  <button>
+                  <button
+                    type="button"
+                    onClick={() => setShowCommentArea(false)}
+                  >
                     <X size={24} color="#8381D9" />
                   </button>
-                  <button>
+                  <button type="submit">
                     <Check size={24} color="#50B2C0" />
                   </button>
                 </SectionActions>
@@ -173,16 +205,17 @@ export function SidePanelModal({ details, bookRatings }: SidePanelModalProps) {
             )}
             {bookRatings?.map((bookRating) => {
               return (
-                <CommentItem key={bookRating.id}>
+                <CommentItem
+                  key={bookRating.id}
+                  user={bookRating.user.id === session.data?.user.id}
+                >
                   <header>
                     <ProfileInfo>
                       <ProfileImage src={bookRating.user.image!} />
                       <div>
                         <strong>{bookRating.user.name}</strong>
                         <p>
-                          {moment(new Date(bookRating.created_at))
-                            .startOf("day")
-                            .fromNow()}
+                          {moment(new Date(bookRating.created_at)).fromNow()}
                         </p>
                       </div>
                     </ProfileInfo>

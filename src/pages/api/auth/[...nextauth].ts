@@ -3,6 +3,7 @@ import GoogleProvider from "next-auth/providers/google";
 import GitHubProvider from "next-auth/providers/github";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { prisma } from "@/libs/prisma";
+
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
   providers: [
@@ -16,15 +17,10 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    async session({ session }) {
-      const user = await prisma.user.findUnique({
-        where: {
-          email: String(session.user?.email),
-        },  
-      });
+    async session({ session, user }) {
       return {
         ...session,
-        userId: user?.id,
+        user,
       };
     },
   },

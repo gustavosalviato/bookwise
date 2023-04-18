@@ -5,16 +5,40 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  if (req.method !== "GET") {
-    return res.status(403).json({ message: "Method not allowed" });
+  switch (req.method) {
+    case "GET":
+      const ratings = await prisma.rating.findMany({
+        include: {
+          book: true,
+          user: true,
+        },
+      });
+
+      return res.json({ ratings });
+      break;
+    case "POST":
+      const { rate, description, book_id, user_id } = req.body;
+
+      const rating = await prisma.rating.create({
+        data: {
+          description,
+          rate,
+          user_id,
+          book_id,
+        },
+        include: {
+          user: {
+            select: {
+              image: true,
+              name: true,
+            },
+          },
+        },
+      });
+
+      console.log(rating);
+
+      return res.status(201).json(rating);
+      break;
   }
-
-  const ratings = await prisma.rating.findMany({
-    include: {
-      book: true,
-      user: true,
-    },
-  });
-
-  return res.json({ ratings });
 }
