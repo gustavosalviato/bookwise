@@ -39,7 +39,7 @@ export const LoginContainer = styled("section", {
   justifyContent: "center",
 });
 
-export const LoginContent = styled("form", {
+export const LoginContent = styled("div", {
   display: "flex",
   maxWidth: "37.2rem",
   width: "100%",

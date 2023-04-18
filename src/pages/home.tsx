@@ -29,7 +29,7 @@ interface HomeProps {
     };
     user: {
       name: string;
-      avatar_url: string;
+      image: string;
     };
   }>;
 

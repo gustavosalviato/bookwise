@@ -44,6 +44,7 @@ interface BookRatings {
   rate: number;
   description: string;
   created_at: string;
+  image: string;
   user: {
     avatar_url: string;
     name: string;

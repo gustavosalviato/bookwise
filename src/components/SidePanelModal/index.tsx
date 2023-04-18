@@ -21,12 +21,14 @@ import {
   SectionActions,
 } from "./styles";
 import Image from "next/image";
-
 import { RatingScore } from "../RatingScore/styles";
 import { BookmarkSimple, BookOpen, Check, X } from "phosphor-react";
 import { SignInModal } from "../SignInModal";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Rating } from "../Rating";
+import { useSession } from "next-auth/react";
+
+import moment from "moment";
 
 interface BookRatings {
   id: string;
@@ -34,7 +36,7 @@ interface BookRatings {
   description: string;
   created_at: string;
   user: {
-    avatar_url: string;
+    image: string;
     name: string;
   };
 }
@@ -65,7 +67,8 @@ interface SidePanelModalProps {
 export function SidePanelModal({ details, bookRatings }: SidePanelModalProps) {
   const [showCommentArea, setShowCommentArea] = useState(false);
   const [rating, setRating] = useState(0);
-  const IsSignIn = true;
+
+  const session = useSession();
 
   const lastRating = details?.ratings?.length > 0 ? details.ratings[0].rate : 0;
 
@@ -132,9 +135,9 @@ export function SidePanelModal({ details, bookRatings }: SidePanelModalProps) {
               <p>Avaliações</p>
 
               <Dialog.Root>
-                {IsSignIn ? (
+                {session.status === "authenticated" ? (
                   <button onClick={() => setShowCommentArea(true)}>
-                    Outro botão
+                    Avaliar
                   </button>
                 ) : (
                   <Dialog.Trigger asChild>
@@ -148,9 +151,9 @@ export function SidePanelModal({ details, bookRatings }: SidePanelModalProps) {
               <UserCommentItem>
                 <header>
                   <UserInfo>
-                    <img src="https://github.com/gustavosalviato.png" alt="" />
+                    <img src={session.data?.user?.image!} alt="" />
 
-                    <strong>Cristofer Rosser</strong>
+                    <strong>{session.data?.user?.name}</strong>
                   </UserInfo>
 
                   <Rating size={5} rating={rating} onRating={setRating} />
@@ -173,10 +176,14 @@ export function SidePanelModal({ details, bookRatings }: SidePanelModalProps) {
                 <CommentItem key={bookRating.id}>
                   <header>
                     <ProfileInfo>
-                      <ProfileImage src={bookRating.user.avatar_url} />
+                      <ProfileImage src={bookRating.user.image!} />
                       <div>
                         <strong>{bookRating.user.name}</strong>
-                        <p>{bookRating.created_at}</p>
+                        <p>
+                          {moment(new Date(bookRating.created_at))
+                            .startOf("day")
+                            .fromNow()}
+                        </p>
                       </div>
                     </ProfileInfo>
 

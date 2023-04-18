@@ -13,6 +13,7 @@ import {
 } from "@/styles/pages/explore";
 import { GetStaticProps } from "next";
 import { Binoculars, Divide } from "phosphor-react";
+import { useSession } from "next-auth/react";
 
 interface ExploreProps {
   books: Array<{

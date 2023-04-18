@@ -18,7 +18,7 @@ export default async function handler(
     include: {
       user: {
         select: {
-          avatar_url: true,
+          image: true,
           name: true,
         },
       },

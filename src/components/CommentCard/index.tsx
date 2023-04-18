@@ -1,6 +1,6 @@
 import Image from "next/image";
-import { use } from "react";
 import { RatingScore } from "../RatingScore/styles";
+import moment from "moment";
 import {
   CommentCardContainer,
   ProfileContainer,
@@ -21,7 +21,7 @@ interface IRating {
   };
   user: {
     name: string;
-    avatar_url: string;
+    image: string;
   };
 }
 
@@ -34,12 +34,12 @@ export function CommentCard({ rating }: CommentCardProps) {
     <CommentCardContainer>
       <header>
         <AvatarContainer>
-          <img src={rating.user.avatar_url} alt="" />
+          <img src={rating.user.image} alt="" />
 
           <ProfileContainer>
             <h3>{rating.user.name}</h3>
 
-            <p>{rating.created_at}</p>
+            <p>{moment(new Date(rating.created_at)).fromNow()}</p>
           </ProfileContainer>
         </AvatarContainer>
 

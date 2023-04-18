@@ -16,14 +16,5 @@ export default async function handler(
     },
   });
 
-
-  const ratings1 = await prisma.rating.findMany({
-    where: {
-      book_id: {
-        
-      }
-    }
-  })
-
   return res.json({ ratings });
 }

@@ -12,7 +12,12 @@ export const ContainerButton = styled("button", {
   color: "$gray200",
   transition: "all 300ms ease-in-out",
 
-  "&:hover": {
+  "&:disabled": {
+    cursor: "not-allowed",
+    opacity: 0.6,
+  },
+
+  "&:not(:disabled):hover": {
     filter: "brightness(0.8)",
   },
 
