@@ -87,7 +87,7 @@ export function ExploreBookCard({ book }: ExploreBookCardProps) {
 
             <p>{book.author}</p>
 
-            <RatingScore rating={book.ratings[0].rate} />
+            <RatingScore rating={book.ratings[0]?.rate} />
           </div>
         </ExploreBookCardContainer>
       </Trigger>

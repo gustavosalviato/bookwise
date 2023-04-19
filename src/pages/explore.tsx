@@ -10,11 +10,12 @@ import {
   PageTitle,
   CategoryItem,
   ExploreBookGrid,
+  DefaultCheckBox,
 } from "@/styles/pages/explore";
 import { GetStaticProps } from "next";
-import { Binoculars, Divide } from "phosphor-react";
-import { useSession } from "next-auth/react";
-
+import { Binoculars } from "phosphor-react";
+import * as RadioGroup from "@radix-ui/react-radio-group";
+import { createFactory, useState } from "react";
 interface ExploreProps {
   books: Array<{
     id: string;
@@ -25,10 +26,25 @@ interface ExploreProps {
       id: string;
       rate: number;
     }>;
+    categories: Array<{
+      category: {
+        name: string;
+      };
+    }>;
   }>;
 }
 
 export default function Explore({ books }: ExploreProps) {
+  const [categorySelected, setCategorySelected] = useState("");
+
+  const filteredBooks = books.filter((book) => {
+    return (
+      book.categories.filter((category) => {
+        return category.category.name === categorySelected;
+      }).length > 0
+    );
+  });
+
   return (
     <ExploreContainer>
       <ExploreScreenShape>
@@ -38,22 +54,49 @@ export default function Explore({ books }: ExploreProps) {
           <PageTitle>
             <span>
               <Binoculars size={32} color="#50B2C0" />
-              Explorar
+              Explorar {categorySelected}
             </span>
 
-            <form>
+            <div>
               <InputText />
-            </form>
+            </div>
           </PageTitle>
           <CategoriesSection>
-            <CategoryItem>Tudo</CategoryItem>
-            <CategoryItem>Computação</CategoryItem>
-            <CategoryItem>Educação</CategoryItem>
-            <CategoryItem>Fantasia</CategoryItem>
-            <CategoryItem>Tudo</CategoryItem>
+            <RadioGroup.Item
+              checked={categorySelected === ""}
+              asChild
+              value={""}
+              onClick={() => setCategorySelected("")}
+            >
+              <DefaultCheckBox>Tudo</DefaultCheckBox>
+            </RadioGroup.Item>
+
+            {books.map((book) => {
+              return (
+                <div key={book.id} className="radio-container">
+                  {book.categories.map((category) => (
+                    <RadioGroup.Item
+                      asChild
+                      value={category.category.name}
+                      key={category.category.name}
+                      onClick={() =>
+                        setCategorySelected(category.category.name)
+                      }
+                    >
+                      <span>{category.category.name}</span>
+                    </RadioGroup.Item>
+                  ))}
+                </div>
+              );
+            })}
           </CategoriesSection>
           <ExploreBookGrid>
-            {books.map((book) => {
+            {!categorySelected &&
+              books.map((book) => {
+                return <ExploreBookCard book={book} key={book.id} />;
+              })}
+
+            {filteredBooks.map((book) => {
               return <ExploreBookCard book={book} key={book.id} />;
             })}
           </ExploreBookGrid>
