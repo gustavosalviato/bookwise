@@ -14,7 +14,7 @@ export function RatingScore({ rating, size = 5 }: RatingScoreProps) {
     return "#0E1116";
   }
   return (
-    <RatingContainer>
+    <RatingContainer className="rating-container">
       {Array.from({ length: size })
         .map((_, i) => i + 1)
         .map((el) => {

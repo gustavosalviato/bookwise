@@ -15,11 +15,7 @@ export const BookCardContainer = styled("div", {
 
 export const CardBody = styled("div", {
   "> strong": {
-    overflow: "hidden",
-    textOverflow: "ellipsis",
-    display: "-webkit-box",
-    "-webkit-box-orient": "vertical",
-    "-webkit-line-clamp": 4,
+    width: '100%',
     lineHeight: "$short",
   },
 
@@ -27,9 +23,7 @@ export const CardBody = styled("div", {
     lineHeight: "$base",
     fontSize: "1.4rem",
     color: "$gray400",
+    marginBottom: '1.6rem',
   },
 
-  "> div": {
-    marginTop: "3.2rem",
-  },
 });

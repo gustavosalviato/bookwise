@@ -23,7 +23,10 @@ export function BookCard({ book }: BookCarProps) {
       <Image src={book?.cover_url} alt={book?.name} width={64} height={94} />
 
       <CardBody>
-        <strong>{book?.name}</strong>
+        {book?.name.length > 20 ? (
+          <strong>{`${book.name.substring(0, 25)}...`}</strong>
+        ) : <strong>{book.name}</strong>}
+        
         <p>{book?.author}</p>
 
         <RatingScore rating={book?.ratings[0]?.rate} />
