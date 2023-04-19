@@ -9,7 +9,7 @@ export const LastReadingsContainer = styled("div", {
     justifyContent: "space-between",
   },
 
-  button: {
+  a: {
     all: "unset",
     padding: "0.4rem 0.8rem",
     backgroundColor: "transparent",

@@ -1,3 +1,4 @@
+import { IRating } from "@/@types/IRatings";
 import { RatingScore } from "../RatingScore/styles";
 import {
   LastReadBookCardContainer,
@@ -6,22 +7,26 @@ import {
   CardHeader,
 } from "./styles";
 
-export function LastReadBookCard() {
+interface LastReadBookCardProps {
+  rating: IRating;
+}
+
+export function LastReadBookCard({ rating }: LastReadBookCardProps) {
   return (
     <LastReadBookCardContainer>
-      <BookImage src="/books/entendendo-algoritmos.png" alt="" />
+      <BookImage src={rating.book.cover_url} alt="" />
       <LastReadBookCardBody>
         <CardHeader>
           <p>Há 2 dias</p>
 
-          <RatingScore />
+          <RatingScore rating={rating.rate} />
         </CardHeader>
 
-        <strong>Entendendo Algoritmos</strong>
+        <strong>{rating.book.name}</strong>
 
-        <span>Aditya Bhargava</span>
+        <span>{rating.book.author}</span>
 
-        <p>Nec tempor nunc in egestas. Euismod nisi eleifend at et in sagittis. Penatibus id vestibulum imperdiet a at imperdiet lectu id vestibulum imperdiet a at imperdiet lectid vestibulum imperdiet a at imperdiet lectid vestibulum imperdiet a at imperdiet lectid vestibulum imperdiet a at imperdiet lect</p>
+        <p>{`${rating.book.summary.substring(0, 55)}...`}</p>
       </LastReadBookCardBody>
     </LastReadBookCardContainer>
   );

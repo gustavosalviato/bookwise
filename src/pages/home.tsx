@@ -15,38 +15,17 @@ import { LastReadings } from "@/components/LastReadings";
 import { GetStaticProps } from "next";
 import { api } from "@/libs/axios";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
+import { IRating } from "@/@types/IRatings";
+import { IBook } from "@/@types/IBooks";
 
 interface HomeProps {
-  ratings: Array<{
-    id: string;
-    rate: number;
-    description: string;
-    created_at: string;
-    book: {
-      name: string;
-      author: string;
-      cover_url: string;
-    };
-    user: {
-      name: string;
-      image: string;
-    };
-  }>;
-
-  books: Array<{
-    id: string;
-    name: string;
-    author: string;
-    cover_url: string;
-    ratings: Array<{
-      id: string;
-      rate: number;
-    }>;
-  }>;
+  ratings: IRating[];
+  books: IBook[];
 }
 
 export default function Home({ ratings, books }: HomeProps) {
-  const isSignIn = false;
+  const session = useSession();
   return (
     <HomeContainer>
       <HomeScreenShape>
@@ -57,7 +36,9 @@ export default function Home({ ratings, books }: HomeProps) {
             <ChartLineUp size={32} /> Início
           </span>
 
-          {isSignIn && <LastReadings />}
+          {session.status === "authenticated" && (
+            <LastReadings ratings={ratings} />
+          )}
 
           <p>Avaliações mais recentes</p>
 

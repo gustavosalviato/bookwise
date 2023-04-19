@@ -1,17 +1,7 @@
 import Image from "next/image";
 import { RatingScore } from "../RatingScore/styles";
 import { BookCardContainer, CardBody } from "./styles";
-
-interface IBook {
-  id: string;
-  name: string;
-  author: string;
-  cover_url: string;
-  ratings: Array<{
-    id: string;
-    rate: number;
-  }>;
-}
+import { IBook } from "@/@types/IBooks";
 
 interface BookCarProps {
   book: IBook;
@@ -25,8 +15,10 @@ export function BookCard({ book }: BookCarProps) {
       <CardBody>
         {book?.name.length > 20 ? (
           <strong>{`${book.name.substring(0, 25)}...`}</strong>
-        ) : <strong>{book.name}</strong>}
-        
+        ) : (
+          <strong>{book.name}</strong>
+        )}
+
         <p>{book?.author}</p>
 
         <RatingScore rating={book?.ratings[0]?.rate} />
