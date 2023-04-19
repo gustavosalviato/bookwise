@@ -8,6 +8,7 @@ import {
   CardBody,
   BodyContent,
 } from "./styles";
+import { useState } from "react";
 
 interface IRating {
   id: string;
@@ -30,6 +31,7 @@ interface CommentCardProps {
 }
 
 export function CommentCard({ rating }: CommentCardProps) {
+  const [readMore, setReadMore] = useState(false);
   return (
     <CommentCardContainer>
       <header>
@@ -58,7 +60,14 @@ export function CommentCard({ rating }: CommentCardProps) {
           <strong>{rating.book.name}</strong>
           <span>{rating.book.author}</span>
 
-          <p>{rating.description}</p>
+          <p>
+            {readMore
+              ? rating.description
+              : `${rating.description.substring(0, 150)}...`}{" "}
+            <button onClick={() => setReadMore(!readMore)}>
+              {readMore ? "ver menos" : "ver mais"}
+            </button>
+          </p>
         </BodyContent>
       </CardBody>
     </CommentCardContainer>

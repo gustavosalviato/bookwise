@@ -63,11 +63,19 @@ export const BodyContent = styled("div", {
     marginTop: "2rem",
     color: "$gray300",
     fontSize: "1.6rem",
-    lineHeight: "$base",
-    overflow: "hidden",
-    textOverflow: "ellipsis",
-    display: "-webkit-box",
-    "-webkit-box-orient": "vertical",
-    "-webkit-line-clamp": 4,
+
+    button: {
+      marginLeft: "0.8rem",
+      all: "unset",
+      fontWeight: "bold",
+      color: "$purple100",
+      cursor: "pointer",
+
+      transition: "all 300ms ease-in-out",
+
+      "&:hover": {
+        filter: "brightness(0.8)",
+      },
+    },
   },
 });

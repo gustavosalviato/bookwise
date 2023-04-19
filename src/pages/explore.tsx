@@ -54,7 +54,7 @@ export default function Explore({ books }: ExploreProps) {
           <PageTitle>
             <span>
               <Binoculars size={32} color="#50B2C0" />
-              Explorar {categorySelected}
+              Explorar
             </span>
 
             <div>
