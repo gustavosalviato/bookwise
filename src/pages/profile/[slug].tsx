@@ -14,13 +14,18 @@ import {
   CardAnalytics,
   Divider,
   AnalyticsDetails,
-} from "../styles/pages/profile";
+} from "../../styles/pages/profile";
 import Image from "next/image";
 import { User } from "phosphor-react";
 import { InputText } from "@/components/InputText";
 import { RatingScore } from "@/components/RatingScore/styles";
 import { BookOpen } from "phosphor-react";
+import { api } from "@/libs/axios";
 export default function Profile() {
+
+  async function getBooks() {
+    // cosnt response = await api.get('/ratings')
+  }
   return (
     <ProfileContainer>
       <ProfileScreenShape>
@@ -50,7 +55,7 @@ export default function Profile() {
                     <strong>Entendendo Algoritmos</strong>
                     <p>Aditya Bhargava</p>
 
-                    <RatingScore />
+                    {/* <RatingScore /> */}
                   </CardDetails>
                 </CardHeader>
                 <CardContent>
