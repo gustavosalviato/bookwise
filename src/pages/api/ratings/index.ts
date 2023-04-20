@@ -1,4 +1,5 @@
 import { prisma } from "@/libs/prisma";
+import moment from "moment";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handler(
@@ -7,12 +8,21 @@ export default async function handler(
 ) {
   switch (req.method) {
     case "GET":
-      const ratings = await prisma.rating.findMany({
+      const ratingsResponse = await prisma.rating.findMany({
         include: {
           book: true,
           user: true,
         },
       });
+
+
+      const ratings = ratingsResponse.map((rating) => {
+        return {
+          ...rating,
+          formattedDate: moment(new Date(rating.created_at)).locale('pt-br').fromNow()
+        }
+      })
+
 
       return res.json({ ratings });
       break;
@@ -35,8 +45,6 @@ export default async function handler(
           },
         },
       });
-
-      console.log(rating);
 
       return res.status(201).json(rating);
       break;

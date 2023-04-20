@@ -83,7 +83,6 @@ export function SidePanelModal({
 
   async function handleSubmit(event: FormEvent) {
     event.preventDefault();
-    console.log("entrou");
     const response = await api.post("/ratings", {
       rate: rating,
       description: comment,

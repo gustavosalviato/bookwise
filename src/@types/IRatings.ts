@@ -3,6 +3,7 @@ export interface IRating {
   rate: number;
   description: string;
   created_at: string;
+  formattedDate: string
   book: {
     name: string;
     author: string;

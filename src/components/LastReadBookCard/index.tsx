@@ -17,7 +17,7 @@ export function LastReadBookCard({ rating }: LastReadBookCardProps) {
       <BookImage src={rating.book.cover_url} alt="" />
       <LastReadBookCardBody>
         <CardHeader>
-          <p>Há 2 dias</p>
+          <p>{rating.formattedDate}</p>
 
           <RatingScore rating={rating.rate} />
         </CardHeader>

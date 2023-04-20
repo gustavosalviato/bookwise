@@ -18,6 +18,7 @@ interface CommentCardProps {
 
 export function CommentCard({ rating }: CommentCardProps) {
   const [readMore, setReadMore] = useState(false);
+
   return (
     <CommentCardContainer>
       <header>
@@ -29,9 +30,7 @@ export function CommentCard({ rating }: CommentCardProps) {
               <h3>{rating.user.name}</h3>
             </Link>
 
-            <p>
-              {moment(new Date(rating.created_at)).locale("pt-br").fromNow()}
-            </p>
+            <p>{rating.formattedDate}</p>
           </ProfileContainer>
         </AvatarContainer>
 
