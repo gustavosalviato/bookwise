@@ -36,9 +36,7 @@ export default function Home({ ratings, books }: HomeProps) {
             <ChartLineUp size={32} /> Início
           </span>
 
-          {session.status === "authenticated" && (
-            <LastReadings ratings={ratings} />
-          )}
+          {session.status === "authenticated" && <LastReadings />}
 
           <p>Avaliações mais recentes</p>
 
