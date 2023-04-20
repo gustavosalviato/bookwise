@@ -47,7 +47,7 @@ interface IProfile {
 interface ProfileProps {
   profileDetails: IProfile;
 }
-export default function ProfileUser({ profileDetails }: ProfileProps) {
+export default function Profile({ profileDetails }: ProfileProps) {
   const { name, ratings, readed_books, total_readed_pages, image } =
     profileDetails;
   return (
@@ -132,8 +132,6 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const session = await getSession(ctx);
 
   const response = await api.get(`/users/ratings/${session?.user.id}`);
-
-  console.log(response.data);
 
   return {
     props: {
