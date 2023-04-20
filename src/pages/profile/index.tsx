@@ -24,7 +24,7 @@ import { GetServerSideProps } from "next";
 import { RatingScore } from "@/components/RatingScore/styles";
 import { Books, UserList, BookmarkSimple } from "phosphor-react";
 import { getSession } from "next-auth/react";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 interface IProfile {
   name: string;
   image: string;
@@ -58,14 +58,16 @@ export default function Profile({ profileDetails }: ProfileProps) {
 
   const searchValueLower = searchValue.toLowerCase();
 
-  const filteredRatings = ratingsInfo.filter((rating) => {
-    const bookName = rating.book.name.toLowerCase();
-    const bookAuthor = rating.book.author.toLowerCase();
-    return (
-      bookName.includes(searchValueLower) ||
-      bookAuthor.includes(searchValueLower)
-    );
-  });
+  const filteredRatings = useMemo(() => {
+    return ratingsInfo.filter((rating) => {
+      const bookName = rating.book.name.toLowerCase();
+      const bookAuthor = rating.book.author.toLowerCase();
+      return (
+        bookName.includes(searchValueLower) ||
+        bookAuthor.includes(searchValueLower)
+      );
+    });
+  }, [searchValueLower]);
   return (
     <ProfileContainer>
       <ProfileScreenShape>
