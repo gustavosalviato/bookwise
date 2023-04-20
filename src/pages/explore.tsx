@@ -15,7 +15,7 @@ import {
 import { GetStaticProps } from "next";
 import { Binoculars } from "phosphor-react";
 import * as RadioGroup from "@radix-ui/react-radio-group";
-import { createFactory, useState } from "react";
+import { createFactory, useMemo, useState } from "react";
 interface ExploreProps {
   books: Array<{
     id: string;
@@ -36,13 +36,24 @@ interface ExploreProps {
 
 export default function Explore({ books }: ExploreProps) {
   const [categorySelected, setCategorySelected] = useState("");
+  const [searchValue, setSearchValue] = useState("");
+
+  const searchValueLower = searchValue.toLowerCase();
 
   const filteredBooks = books.filter((book) => {
-    return (
+    const bookName = book.name.toLowerCase();
+    const bookAuthor = book.author.toLowerCase();
+
+    const categoryFilter =
       book.categories.filter((category) => {
         return category.category.name === categorySelected;
-      }).length > 0
-    );
+      }).length > 0;
+
+    const searchFilter =
+      bookName.startsWith(searchValueLower) ||
+      bookAuthor.startsWith(searchValueLower);
+
+    return categoryFilter && searchFilter;
   });
 
   return (
@@ -58,7 +69,11 @@ export default function Explore({ books }: ExploreProps) {
             </span>
 
             <div>
-              <InputText />
+              <InputText
+                type="text"
+                value={searchValue}
+                onChange={(e) => setSearchValue(e.target.value)}
+              />
             </div>
           </PageTitle>
           <CategoriesSection>
