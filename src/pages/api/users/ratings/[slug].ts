@@ -20,7 +20,7 @@ export default async function handler(
     include: {
       ratings: {
         include: {
-          book: true,
+          book: true
         }
       }
     },

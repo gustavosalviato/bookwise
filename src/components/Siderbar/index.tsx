@@ -26,7 +26,7 @@ export function Sidebar() {
         <div>
           <User size={24} />
 
-          <ActiveLink path="/profile" title="Perfil" />
+          <ActiveLink path="/profile" title="Perfil" includes />
         </div>
       </NavContainer>
 

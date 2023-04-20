@@ -17,7 +17,7 @@ export function ActiveLink({ path, title, includes = false }: ActiveLinkProps) {
     return router.pathname === path;
   }
 
-  const isActive = router.pathname === path;
+  const isActive = verifyIfIsActive();
 
   if (isActive) {
     return (
