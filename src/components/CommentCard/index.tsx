@@ -8,23 +8,9 @@ import {
   CardBody,
   BodyContent,
 } from "./styles";
-import { useState } from "react";
-
-interface IRating {
-  id: string;
-  rate: number;
-  description: string;
-  created_at: string;
-  book: {
-    name: string;
-    author: string;
-    cover_url: string;
-  };
-  user: {
-    name: string;
-    image: string;
-  };
-}
+import { use, useState } from "react";
+import Link from "next/link";
+import { IRating } from "@/@types/IRatings";
 
 interface CommentCardProps {
   rating: IRating;
@@ -39,7 +25,9 @@ export function CommentCard({ rating }: CommentCardProps) {
           <img src={rating.user.image} alt="" />
 
           <ProfileContainer>
-            <h3>{rating.user.name}</h3>
+            <Link href={`/profile/${rating.user.id}`}>
+              <h3>{rating.user.name}</h3>
+            </Link>
 
             <p>
               {moment(new Date(rating.created_at)).locale("pt-br").fromNow()}

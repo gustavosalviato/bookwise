@@ -10,6 +10,7 @@ export interface IRating {
     summary: string
   };
   user: {
+    id: string;
     name: string;
     image: string;
   };

@@ -16,6 +16,17 @@ export const ProfileContainer = styled("span", {
   display: "flex",
   flexDirection: "column",
 
+  '> a': {
+    color: '$gray100',
+    textDecoration: 'none',
+    fontWeight: "400",
+    transition: 'all 300ms ease-in-out',
+
+    '&:hover': {
+      filter: 'brightness(0.8)',
+    }
+  },
+
   "> h3": {
     fontSize: "1.6rem",
     fontWeight: "400",
@@ -38,7 +49,6 @@ export const AvatarContainer = styled("div", {
     border: "2px solid",
     borderColor: "$purple200",
     boxSizing: "initial",
-    objectFit: "fill",
   },
 });
 
