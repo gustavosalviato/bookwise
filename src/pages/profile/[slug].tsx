@@ -21,8 +21,8 @@ import { InputText } from "@/components/InputText";
 import { RatingScore } from "@/components/RatingScore/styles";
 import { BookOpen } from "phosphor-react";
 import { api } from "@/libs/axios";
+import { GetStaticPaths, GetStaticProps } from "next";
 export default function Profile() {
-
   async function getBooks() {
     // cosnt response = await api.get('/ratings')
   }
@@ -108,3 +108,24 @@ export default function Profile() {
     </ProfileContainer>
   );
 }
+
+export const getStaticPaths: GetStaticPaths = () => {
+  return {
+    paths: [],
+    fallback: "blocking",
+  };
+};
+
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  const slug = params?.slug;
+  const response = await api.get(`/users/ratings/${slug}`);
+
+  console.log(response.data);
+
+  return {
+    props: {
+      profileDetails: response.data,
+    },
+    revalidate: 1 * 60 * 60 * 24,
+  };
+};
