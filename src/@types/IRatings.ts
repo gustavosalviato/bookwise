@@ -9,6 +9,12 @@ export interface IRating {
     author: string;
     cover_url: string;
     summary: string
+    categories: Array<{
+      category: {
+        id: string,
+        name: string
+      }
+    }>
   };
   user: {
     id: string;

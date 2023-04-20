@@ -33,6 +33,7 @@ interface IProfile {
     id: string;
     rate: number;
     formattedDate: string;
+    categories: string[];
     book: {
       id: string;
       name: string;
@@ -119,6 +120,13 @@ export default function ProfileUser({ profileDetails }: ProfileProps) {
               <div>
                 <strong>{ratings.length}</strong>
                 <p>Autores lidos</p>
+              </div>
+            </AnalyticsDetails>
+            <AnalyticsDetails>
+              <BookmarkSimple size={32} color="#50B2C0" />
+              <div>
+                <strong>{ratings[0].categories[0]}</strong>
+                <p>Categoria mais lida</p>
               </div>
             </AnalyticsDetails>
           </CardAnalytics>

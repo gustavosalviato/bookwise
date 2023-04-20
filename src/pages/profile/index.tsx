@@ -20,7 +20,7 @@ import { User } from "phosphor-react";
 import { InputText } from "@/components/InputText";
 import { BookOpen } from "phosphor-react";
 import { api } from "@/libs/axios";
-import { GetServerSideProps, GetStaticPaths, GetStaticProps } from "next";
+import { GetServerSideProps } from "next";
 import { RatingScore } from "@/components/RatingScore/styles";
 import { Books, UserList, BookmarkSimple } from "phosphor-react";
 import { getSession } from "next-auth/react";
@@ -33,6 +33,7 @@ interface IProfile {
     id: string;
     rate: number;
     formattedDate: string;
+    categories: string[];
     book: {
       id: string;
       name: string;
@@ -119,6 +120,14 @@ export default function Profile({ profileDetails }: ProfileProps) {
               <div>
                 <strong>{ratings.length}</strong>
                 <p>Autores lidos</p>
+              </div>
+            </AnalyticsDetails>
+
+            <AnalyticsDetails>
+              <BookmarkSimple size={32} color="#50B2C0" />
+              <div>
+                <strong>{ratings[0].categories[0]}</strong>
+                <p>Categoria mais lida</p>
               </div>
             </AnalyticsDetails>
           </CardAnalytics>

@@ -20,7 +20,15 @@ export default async function handler(
     include: {
       ratings: {
         include: {
-          book: true
+          book: {
+            include: {
+              categories: {
+                select: {
+                  category: true
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -39,6 +47,9 @@ export default async function handler(
         id: rating.id,
         rate: rating.rate,
         formattedDate: moment(new Date(rating.created_at)).locale('pt-br').fromNow(),
+        categories: userResponse.ratings.map((rating) => {
+          return rating.book.categories[0].category.name
+        }),
         book: {
           id: rating.book.id,
           name: rating.book.name,
