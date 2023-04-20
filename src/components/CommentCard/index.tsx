@@ -41,7 +41,9 @@ export function CommentCard({ rating }: CommentCardProps) {
           <ProfileContainer>
             <h3>{rating.user.name}</h3>
 
-            <p>{moment(new Date(rating.created_at)).fromNow()}</p>
+            <p>
+              {moment(new Date(rating.created_at)).locale("pt-br").fromNow()}
+            </p>
           </ProfileContainer>
         </AvatarContainer>
 

@@ -215,7 +215,9 @@ export function SidePanelModal({
                       <div>
                         <strong>{bookRating.user.name}</strong>
                         <p>
-                          {moment(new Date(bookRating.created_at)).fromNow()}
+                          {moment(new Date(bookRating.created_at))
+                            .locale("pt-br")
+                            .fromNow()}
                         </p>
                       </div>
                     </ProfileInfo>
