@@ -23,6 +23,7 @@ import { api } from "@/libs/axios";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { RatingScore } from "@/components/RatingScore/styles";
 import { Books, UserList, BookmarkSimple } from "phosphor-react";
+import { useMemo, useState } from "react";
 
 interface IProfile {
   name: string;
@@ -51,6 +52,24 @@ interface ProfileProps {
 export default function ProfileUser({ profileDetails }: ProfileProps) {
   const { name, ratings, readed_books, total_readed_pages, image } =
     profileDetails;
+
+  const [searchValue, setSearchValue] = useState("");
+  const [ratingsInfo, setRatingsInfo] = useState(ratings);
+
+  const searchValueLower = searchValue.toLocaleUpperCase();
+
+  const filteredRatings = useMemo(() => {
+    return ratingsInfo.filter((rating) => {
+      const bookName = rating.book.name.toLowerCase();
+      const bookAuthor = rating.book.author.toLowerCase();
+
+      return (
+        bookName.includes(searchValueLower) ||
+        bookAuthor.includes(searchValueLower)
+      );
+    });
+  }, [searchValue]);
+
   return (
     <ProfileContainer>
       <ProfileScreenShape>
@@ -61,10 +80,14 @@ export default function ProfileUser({ profileDetails }: ProfileProps) {
             Perfil
           </PageTitle>
 
-          <InputText />
+          <InputText
+            type="text"
+            value={searchValue}
+            onChange={(e) => setSearchValue(e.target.value)}
+          />
 
           <MainSection>
-            {ratings.map((rating) => (
+            {filteredRatings.map((rating) => (
               <BookCard key={rating.id}>
                 <p>{rating.formattedDate}</p>
                 <Card>
