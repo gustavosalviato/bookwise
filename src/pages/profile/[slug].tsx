@@ -18,14 +18,34 @@ import {
 import Image from "next/image";
 import { User } from "phosphor-react";
 import { InputText } from "@/components/InputText";
-import { RatingScore } from "@/components/RatingScore/styles";
 import { BookOpen } from "phosphor-react";
 import { api } from "@/libs/axios";
 import { GetStaticPaths, GetStaticProps } from "next";
-export default function Profile() {
-  async function getBooks() {
-    // cosnt response = await api.get('/ratings')
-  }
+
+interface IProfile {
+  id: string;
+  name: string;
+  readed_books: number;
+  total_readed_pages: number;
+  ratings: Array<{
+    id: string;
+    rate: number;
+    formattedDate: string;
+    book: {
+      id: string;
+      name: string;
+      author: string;
+      summary: string;
+      cover_url: string;
+      total_pages: number;
+    };
+  }>;
+}
+
+interface ProfileProps {
+  profileDetails: IProfile;
+}
+export default function Profile({ profileDetails }: ProfileProps) {
   return (
     <ProfileContainer>
       <ProfileScreenShape>
@@ -119,8 +139,6 @@ export const getStaticPaths: GetStaticPaths = () => {
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const slug = params?.slug;
   const response = await api.get(`/users/ratings/${slug}`);
-
-  console.log(response.data);
 
   return {
     props: {
