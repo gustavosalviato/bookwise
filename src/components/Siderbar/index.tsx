@@ -3,7 +3,9 @@ import Image from "next/image";
 import { ActiveLink } from "../ActiveLink";
 import { ChartLineUp, Binoculars, User } from "phosphor-react";
 import { SignInButton } from "../SignInButton";
+import { useSession } from "next-auth/react";
 export function Sidebar() {
+  const session = useSession();
   return (
     <SidebarContainer>
       <div>
@@ -26,7 +28,11 @@ export function Sidebar() {
         <div>
           <User size={24} />
 
-          <ActiveLink path="/profile" title="Perfil" includes />
+          <ActiveLink
+            path={`/profile/${session.data?.user.id}`}
+            title="Perfil"
+            includes
+          />
         </div>
       </NavContainer>
 
