@@ -24,6 +24,7 @@ import { GetServerSideProps } from "next";
 import { RatingScore } from "@/components/RatingScore/styles";
 import { Books, UserList, BookmarkSimple } from "phosphor-react";
 import { getSession } from "next-auth/react";
+import { useState } from "react";
 interface IProfile {
   name: string;
   image: string;
@@ -51,6 +52,20 @@ interface ProfileProps {
 export default function Profile({ profileDetails }: ProfileProps) {
   const { name, ratings, readed_books, total_readed_pages, image } =
     profileDetails;
+
+  const [searchValue, setSearchValue] = useState("");
+  const [ratingsInfo, setRatingInfo] = useState(ratings);
+
+  const searchValueLower = searchValue.toLowerCase();
+
+  const filteredRatings = ratingsInfo.filter((rating) => {
+    const bookName = rating.book.name.toLowerCase();
+    const bookAuthor = rating.book.author.toLowerCase();
+    return (
+      bookName.includes(searchValueLower) ||
+      bookAuthor.includes(searchValueLower)
+    );
+  });
   return (
     <ProfileContainer>
       <ProfileScreenShape>
@@ -61,10 +76,14 @@ export default function Profile({ profileDetails }: ProfileProps) {
             Perfil
           </PageTitle>
 
-          <InputText />
+          <InputText
+            type="text"
+            value={searchValue}
+            onChange={(e) => setSearchValue(e.target.value)}
+          />
 
           <MainSection>
-            {ratings.map((rating) => (
+            {filteredRatings.map((rating) => (
               <BookCard key={rating.id}>
                 <p>{rating.formattedDate}</p>
                 <Card>
