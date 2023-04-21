@@ -17,7 +17,7 @@ import Link from 'next/link'
 import { useSession } from 'next-auth/react'
 import { IRating } from '@/@types/IRatings'
 import { IBook } from '@/@types/IBooks'
-
+import { DefaultSeo } from 'next-seo'
 interface HomeProps {
   ratings: IRating[]
   books: IBook[]
@@ -26,42 +26,45 @@ interface HomeProps {
 export default function Home({ ratings, books }: HomeProps) {
   const session = useSession()
   return (
-    <HomeContainer>
-      <HomeScreenShape>
-        <Sidebar />
+    <>
+      <DefaultSeo title="Início | bookwise" />
+      <HomeContainer>
+        <HomeScreenShape>
+          <Sidebar />
 
-        <MainContainer>
-          <span>
-            <ChartLineUp size={32} /> Início
-          </span>
+          <MainContainer>
+            <span>
+              <ChartLineUp size={32} /> Início
+            </span>
 
-          {session.status === 'authenticated' && <LastReadings />}
+            {session.status === 'authenticated' && <LastReadings />}
 
-          <p>Avaliações mais recentes</p>
+            <p>Avaliações mais recentes</p>
 
-          <RatingsContainer>
-            {ratings.map((rating) => {
-              return <CommentCard key={rating.id} rating={rating} />
+            <RatingsContainer>
+              {ratings.map((rating) => {
+                return <CommentCard key={rating.id} rating={rating} />
+              })}
+            </RatingsContainer>
+          </MainContainer>
+
+          <TrendingBooks>
+            <SectionTitle>
+              <p>Livros populares</p>
+
+              <Link href="/explore">
+                Ver todos
+                <CaretRight size={16} weight="bold" />
+              </Link>
+            </SectionTitle>
+
+            {books.map((book) => {
+              return <BookCard book={book} key={book.id} />
             })}
-          </RatingsContainer>
-        </MainContainer>
-
-        <TrendingBooks>
-          <SectionTitle>
-            <p>Livros populares</p>
-
-            <Link href="/explore">
-              Ver todos
-              <CaretRight size={16} weight="bold" />
-            </Link>
-          </SectionTitle>
-
-          {books.map((book) => {
-            return <BookCard book={book} key={book.id} />
-          })}
-        </TrendingBooks>
-      </HomeScreenShape>
-    </HomeContainer>
+          </TrendingBooks>
+        </HomeScreenShape>
+      </HomeContainer>
+    </>
   )
 }
 

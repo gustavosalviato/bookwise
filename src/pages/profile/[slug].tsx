@@ -22,7 +22,7 @@ import { api } from '@/libs/axios'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { RatingScore } from '@/components/RatingScore/styles'
 import { useMemo, useState } from 'react'
-
+import { DefaultSeo } from 'next-seo'
 interface IProfile {
   name: string
   image: string
@@ -69,91 +69,94 @@ export default function ProfileUser({ profileDetails }: ProfileProps) {
   }, [searchValueLower])
 
   return (
-    <ProfileContainer>
-      <ProfileScreenShape>
-        <Sidebar />
-        <PageTitleSection>
-          <PageTitle>
-            <User size={32} />
-            Perfil
-          </PageTitle>
+    <>
+      <DefaultSeo title="Perfil | bookwise" />
+      <ProfileContainer>
+        <ProfileScreenShape>
+          <Sidebar />
+          <PageTitleSection>
+            <PageTitle>
+              <User size={32} />
+              Perfil
+            </PageTitle>
 
-          <InputText
-            type="text"
-            value={searchValue}
-            onChange={(e) => setSearchValue(e.target.value)}
-          />
+            <InputText
+              type="text"
+              value={searchValue}
+              onChange={(e) => setSearchValue(e.target.value)}
+            />
 
-          <MainSection>
-            {filteredRatings.map((rating) => (
-              <BookCard key={rating.id}>
-                <p>{rating.formattedDate}</p>
-                <Card>
-                  <CardHeader>
-                    <Image
-                      src={rating.book.cover_url}
-                      alt=""
-                      width={98}
-                      height={134}
-                      quality={100}
-                    />
+            <MainSection>
+              {filteredRatings.map((rating) => (
+                <BookCard key={rating.id}>
+                  <p>{rating.formattedDate}</p>
+                  <Card>
+                    <CardHeader>
+                      <Image
+                        src={rating.book.cover_url}
+                        alt=""
+                        width={98}
+                        height={134}
+                        quality={100}
+                      />
 
-                    <CardDetails>
-                      <strong>{rating.book.name}</strong>
-                      <p>{rating.book.author}</p>
+                      <CardDetails>
+                        <strong>{rating.book.name}</strong>
+                        <p>{rating.book.author}</p>
 
-                      <RatingScore rating={rating.rate} />
-                    </CardDetails>
-                  </CardHeader>
-                  <CardContent>{rating.book.summary}</CardContent>
-                </Card>
-              </BookCard>
-            ))}
-          </MainSection>
-        </PageTitleSection>
+                        <RatingScore rating={rating.rate} />
+                      </CardDetails>
+                    </CardHeader>
+                    <CardContent>{rating.book.summary}</CardContent>
+                  </Card>
+                </BookCard>
+              ))}
+            </MainSection>
+          </PageTitleSection>
 
-        <AnalyticsSection>
-          <CardAnalytics>
-            <img src={image} alt="" width={72} height={72} />
-            <strong>{name}</strong>
-            <p>membro desde 2019</p>
+          <AnalyticsSection>
+            <CardAnalytics>
+              <img src={image} alt="" width={72} height={72} />
+              <strong>{name}</strong>
+              <p>membro desde 2019</p>
 
-            <Divider />
+              <Divider />
 
-            <AnalyticsDetails>
-              <BookOpen size={32} color="#50B2C0" />
-              <div>
-                <strong>{total_readed_pages}</strong>
-                <p>Páginas lidas</p>
-              </div>
-            </AnalyticsDetails>
+              <AnalyticsDetails>
+                <BookOpen size={32} color="#50B2C0" />
+                <div>
+                  <strong>{total_readed_pages}</strong>
+                  <p>Páginas lidas</p>
+                </div>
+              </AnalyticsDetails>
 
-            <AnalyticsDetails>
-              <Books size={32} color="#50B2C0" />
-              <div>
-                <strong>{readed_books}</strong>
-                <p>Livros avaliados</p>
-              </div>
-            </AnalyticsDetails>
+              <AnalyticsDetails>
+                <Books size={32} color="#50B2C0" />
+                <div>
+                  <strong>{readed_books}</strong>
+                  <p>Livros avaliados</p>
+                </div>
+              </AnalyticsDetails>
 
-            <AnalyticsDetails>
-              <UserList size={32} color="#50B2C0" />
-              <div>
-                <strong>{ratings.length}</strong>
-                <p>Autores lidos</p>
-              </div>
-            </AnalyticsDetails>
-            <AnalyticsDetails>
-              <BookmarkSimple size={32} color="#50B2C0" />
-              <div>
-                <strong>{ratings[0]?.categories[0]}</strong>
-                <p>Categoria mais lida</p>
-              </div>
-            </AnalyticsDetails>
-          </CardAnalytics>
-        </AnalyticsSection>
-      </ProfileScreenShape>
-    </ProfileContainer>
+              <AnalyticsDetails>
+                <UserList size={32} color="#50B2C0" />
+                <div>
+                  <strong>{ratings.length}</strong>
+                  <p>Autores lidos</p>
+                </div>
+              </AnalyticsDetails>
+              <AnalyticsDetails>
+                <BookmarkSimple size={32} color="#50B2C0" />
+                <div>
+                  <strong>{ratings[0]?.categories[0]}</strong>
+                  <p>Categoria mais lida</p>
+                </div>
+              </AnalyticsDetails>
+            </CardAnalytics>
+          </AnalyticsSection>
+        </ProfileScreenShape>
+      </ProfileContainer>
+    </>
   )
 }
 
