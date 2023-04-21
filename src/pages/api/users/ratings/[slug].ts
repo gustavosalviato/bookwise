@@ -49,7 +49,7 @@ export default async function handler(
           .locale('pt-br')
           .fromNow(),
         categories: userResponse.ratings.map((rating) => {
-          return rating.book.categories[0].category.name
+          return rating.book.categories[0]?.category.name
         }),
         book: {
           id: rating.book.id,
