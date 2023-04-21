@@ -145,7 +145,7 @@ export default function Profile({ profileDetails }: ProfileProps) {
             <AnalyticsDetails>
               <BookmarkSimple size={32} color="#50B2C0" />
               <div>
-                <strong>{ratings[0].categories[0]}</strong>
+                <strong>{ratings[0]?.categories[0]}</strong>
                 <p>Categoria mais lida</p>
               </div>
             </AnalyticsDetails>
