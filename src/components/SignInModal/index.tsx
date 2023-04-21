@@ -1,7 +1,7 @@
-import * as Dialog from "@radix-ui/react-dialog";
-import { Overlay, Content, Title, CloseButton } from "./styles";
-import Image from "next/image";
-import { DiscordLogo, X } from "phosphor-react";
+import * as Dialog from '@radix-ui/react-dialog'
+import { Overlay, Content, Title, CloseButton } from './styles'
+import Image from 'next/image'
+import { X } from 'phosphor-react'
 
 export function SignInModal() {
   return (
@@ -26,5 +26,5 @@ export function SignInModal() {
         </Content>
       </Overlay>
     </Dialog.Portal>
-  );
+  )
 }

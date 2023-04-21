@@ -1,4 +1,4 @@
-import { Sidebar } from "@/components/Siderbar";
+import { Sidebar } from '@/components/Siderbar'
 import {
   HomeContainer,
   MainContainer,
@@ -6,26 +6,25 @@ import {
   TrendingBooks,
   SectionTitle,
   HomeScreenShape,
-} from "../styles/pages/home";
-import { ChartLineUp } from "phosphor-react";
-import { CommentCard } from "@/components/CommentCard";
-import { CaretRight } from "phosphor-react";
-import { BookCard } from "@/components/BookCard";
-import { LastReadings } from "@/components/LastReadings";
-import { GetStaticProps } from "next";
-import { api } from "@/libs/axios";
-import Link from "next/link";
-import { useSession } from "next-auth/react";
-import { IRating } from "@/@types/IRatings";
-import { IBook } from "@/@types/IBooks";
+} from '../styles/pages/home'
+import { ChartLineUp, CaretRight } from 'phosphor-react'
+import { CommentCard } from '@/components/CommentCard'
+import { BookCard } from '@/components/BookCard'
+import { LastReadings } from '@/components/LastReadings'
+import { GetStaticProps } from 'next'
+import { api } from '@/libs/axios'
+import Link from 'next/link'
+import { useSession } from 'next-auth/react'
+import { IRating } from '@/@types/IRatings'
+import { IBook } from '@/@types/IBooks'
 
 interface HomeProps {
-  ratings: IRating[];
-  books: IBook[];
+  ratings: IRating[]
+  books: IBook[]
 }
 
 export default function Home({ ratings, books }: HomeProps) {
-  const session = useSession();
+  const session = useSession()
   return (
     <HomeContainer>
       <HomeScreenShape>
@@ -36,13 +35,13 @@ export default function Home({ ratings, books }: HomeProps) {
             <ChartLineUp size={32} /> Início
           </span>
 
-          {session.status === "authenticated" && <LastReadings />}
+          {session.status === 'authenticated' && <LastReadings />}
 
           <p>Avaliações mais recentes</p>
 
           <RatingsContainer>
             {ratings.map((rating) => {
-              return <CommentCard key={rating.id} rating={rating} />;
+              return <CommentCard key={rating.id} rating={rating} />
             })}
           </RatingsContainer>
         </MainContainer>
@@ -58,17 +57,17 @@ export default function Home({ ratings, books }: HomeProps) {
           </SectionTitle>
 
           {books.map((book) => {
-            return <BookCard book={book} key={book.id} />;
+            return <BookCard book={book} key={book.id} />
           })}
         </TrendingBooks>
       </HomeScreenShape>
     </HomeContainer>
-  );
+  )
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const ratingsResponse = await api.get("/ratings");
-  const booksResponse = await api.get("/books");
+  const ratingsResponse = await api.get('/ratings')
+  const booksResponse = await api.get('/books')
 
   return {
     props: {
@@ -76,5 +75,5 @@ export const getStaticProps: GetStaticProps = async () => {
       books: booksResponse.data.books,
     },
     revalidate: 1 * 60 * 60 * 24,
-  };
-};
+  }
+}

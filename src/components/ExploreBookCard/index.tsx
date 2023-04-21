@@ -1,79 +1,77 @@
-import { RatingScore } from "../RatingScore/styles";
-import { ExploreBookCardContainer, Image, Trigger } from "./styles";
-import * as Dialog from "@radix-ui/react-dialog";
-import { SidePanelModal } from "../SidePanelModal";
-import { api } from "@/libs/axios";
-import { useEffect, useState } from "react";
+import { RatingScore } from '../RatingScore/styles'
+import { ExploreBookCardContainer, Image, Trigger } from './styles'
+import * as Dialog from '@radix-ui/react-dialog'
+import { SidePanelModal } from '../SidePanelModal'
+import { api } from '@/libs/axios'
+import { useEffect, useState } from 'react'
 
 interface IBook {
-  id: string;
-  name: string;
-  author: string;
-  cover_url: string;
+  id: string
+  name: string
+  author: string
+  cover_url: string
   ratings: Array<{
-    id: string;
-    rate: number;
-  }>;
+    id: string
+    rate: number
+  }>
 }
 
 interface ExploreBookCardProps {
-  book: IBook;
+  book: IBook
 }
 
 interface BookDetails {
-  id: string;
-  name: string;
-  author: string;
-  summary: string;
-  cover_url: string;
-  total_pages: number;
+  id: string
+  name: string
+  author: string
+  summary: string
+  cover_url: string
+  total_pages: number
   categories: Array<{
     category: {
-      name: string;
-    };
-  }>;
+      name: string
+    }
+  }>
   ratings: Array<{
-    rate: number;
-    description: string;
-    created_at: string;
-  }>;
+    rate: number
+    description: string
+    created_at: string
+  }>
 }
 
 interface BookRatings {
-  id: string;
-  rate: number;
-  description: string;
-  created_at: string;
-  image: string;
+  id: string
+  rate: number
+  description: string
+  created_at: string
+  image: string
   user: {
-    id: string;
-    image: string;
-    name: string;
-  };
+    id: string
+    image: string
+    name: string
+  }
 }
 
 export function ExploreBookCard({ book }: ExploreBookCardProps) {
-  const [bookDetails, setBookDetails] = useState<BookDetails>(
-    {} as BookDetails
-  );
+  const [bookDetails, setBookDetails] = useState<BookDetails>({} as BookDetails)
 
-  const [bookRatings, setBookRatings] = useState<BookRatings[]>([]);
+  const [bookRatings, setBookRatings] = useState<BookRatings[]>([])
   async function fetchBook(id: string) {
-    const response = await api.get(`/books/${id}`);
+    const response = await api.get(`/books/${id}`)
 
-    setBookDetails(response.data.book);
+    setBookDetails(response.data.book)
   }
 
   useEffect(() => {
     async function getRatingsOnBook() {
-      const response = await api.get(`/ratings/${bookDetails.id}`);
-      setBookRatings(response.data.booksRatings);
+      const response = await api.get(`/ratings/${bookDetails.id}`)
+      setBookRatings(response.data.booksRatings)
     }
-    getRatingsOnBook();
-  }, [bookDetails.id]);
+    getRatingsOnBook()
+  }, [bookDetails.id])
 
   async function handleOnRegister(data: BookRatings) {
-    setBookRatings((prevState) => [...prevState, data]);
+    setBookRatings((prevState) => [...prevState, data])
   }
 
   return (
@@ -98,5 +96,5 @@ export function ExploreBookCard({ book }: ExploreBookCardProps) {
         onRegister={handleOnRegister}
       />
     </Dialog.Root>
-  );
+  )
 }

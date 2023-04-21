@@ -1,6 +1,6 @@
-import { forwardRef, InputHTMLAttributes } from "react";
-import { Input, InputTextContainer } from "./styles";
-import { MagnifyingGlass } from "phosphor-react";
+import { forwardRef, InputHTMLAttributes } from 'react'
+import { Input, InputTextContainer } from './styles'
+import { MagnifyingGlass } from 'phosphor-react'
 interface InputTextProps extends InputHTMLAttributes<HTMLInputElement> {}
 
 export const InputText = forwardRef<HTMLInputElement, InputTextProps>(
@@ -16,6 +16,6 @@ export const InputText = forwardRef<HTMLInputElement, InputTextProps>(
 
         <MagnifyingGlass size={20} />
       </InputTextContainer>
-    );
-  }
-);
+    )
+  },
+)

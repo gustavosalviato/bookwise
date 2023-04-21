@@ -1,31 +1,31 @@
-import { globalCss } from ".";
+import { globalCss } from '.'
 
 export const globalStyles = globalCss({
-  "*": {
+  '*': {
     margin: 0,
     padding: 0,
-    boxSizing: "border-box",
+    boxSizing: 'border-box',
   },
 
   html: {
-    fontSize: "62.5%",
-    overflowX: "hidden",
+    fontSize: '62.5%',
+    overflowX: 'hidden',
   },
 
   body: {
-    backgroundColor: "$gray800",
-    color: "$gray100",
-    "-webkit-font-smoothing": "antialiased",
-    lineHeight: "$base",
+    backgroundColor: '$gray800',
+    color: '$gray100',
+    '-webkit-font-smoothing': 'antialiased',
+    lineHeight: '$base',
   },
 
-  "body, input, textarea, button": {
-    fontFamily: "Nunito, sans-serif",
+  'body, input, textarea, button': {
+    fontFamily: 'Nunito, sans-serif',
     fontWeight: 400,
-    fontSize: "1.6rem",
+    fontSize: '1.6rem',
   },
 
   button: {
-    cursor: "pointer",
+    cursor: 'pointer',
   },
-});
+})

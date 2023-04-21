@@ -1,4 +1,4 @@
-import * as Dialog from "@radix-ui/react-dialog";
+import * as Dialog from '@radix-ui/react-dialog'
 import {
   Overlay,
   Content,
@@ -19,81 +19,81 @@ import {
   UserInfo,
   TextArea,
   SectionActions,
-} from "./styles";
-import Image from "next/image";
-import { RatingScore } from "../RatingScore/styles";
-import { BookmarkSimple, BookOpen, Check, X } from "phosphor-react";
-import { SignInModal } from "../SignInModal";
-import { FormEvent, useState } from "react";
-import { Rating } from "../Rating";
-import { useSession } from "next-auth/react";
+} from './styles'
+import Image from 'next/image'
+import { RatingScore } from '../RatingScore/styles'
+import { BookmarkSimple, BookOpen, Check, X } from 'phosphor-react'
+import { SignInModal } from '../SignInModal'
+import { FormEvent, useState } from 'react'
+import { Rating } from '../Rating'
+import { useSession } from 'next-auth/react'
 
-import moment from "moment";
-import { api } from "@/libs/axios";
+import moment from 'moment'
+import { api } from '@/libs/axios'
 
 interface IBookRatings {
-  id: string;
-  rate: number;
-  description: string;
-  created_at: string;
-  image: string;
+  id: string
+  rate: number
+  description: string
+  created_at: string
+  image: string
   user: {
-    id: string;
-    image: string;
-    name: string;
-  };
+    id: string
+    image: string
+    name: string
+  }
 }
 
 interface IDetails {
-  id: string;
-  name: string;
-  author: string;
-  summary: string;
-  cover_url: string;
-  total_pages: number;
+  id: string
+  name: string
+  author: string
+  summary: string
+  cover_url: string
+  total_pages: number
   categories: Array<{
     category: {
-      name: string;
-    };
-  }>;
+      name: string
+    }
+  }>
   ratings: Array<{
-    rate: number;
-    description: string;
-    created_at: string;
-  }>;
+    rate: number
+    description: string
+    created_at: string
+  }>
 }
 
 interface SidePanelModalProps {
-  details: IDetails;
-  bookRatings: IBookRatings[];
-  onRegister: (data: IBookRatings) => void;
+  details: IDetails
+  bookRatings: IBookRatings[]
+  onRegister: (data: IBookRatings) => void
 }
 export function SidePanelModal({
   details,
   bookRatings,
   onRegister,
 }: SidePanelModalProps) {
-  const [showCommentArea, setShowCommentArea] = useState(false);
-  const [rating, setRating] = useState(0);
-  const [comment, setComment] = useState("");
+  const [showCommentArea, setShowCommentArea] = useState(false)
+  const [rating, setRating] = useState(0)
+  const [comment, setComment] = useState('')
 
-  const session = useSession();
+  const session = useSession()
 
-  const lastRating = details?.ratings?.length > 0 ? details.ratings[0].rate : 0;
+  const lastRating = details?.ratings?.length > 0 ? details.ratings[0].rate : 0
 
   async function handleSubmit(event: FormEvent) {
-    event.preventDefault();
-    const response = await api.post("/ratings", {
+    event.preventDefault()
+    const response = await api.post('/ratings', {
       rate: rating,
       description: comment,
       user_id: session.data?.user.id,
       book_id: details.id,
-    });
+    })
 
-    onRegister(response.data);
-    setShowCommentArea(false);
-    setRating(0);
-    setComment("");
+    onRegister(response.data)
+    setShowCommentArea(false)
+    setRating(0)
+    setComment('')
   }
 
   return (
@@ -134,9 +134,9 @@ export function SidePanelModal({
                     {details.categories?.map((category) => {
                       return (
                         <strong key={category.category.name}>
-                          {category.category.name}{" "}
+                          {category.category.name}{' '}
                         </strong>
-                      );
+                      )
                     })}
                   </div>
                 </div>
@@ -159,7 +159,7 @@ export function SidePanelModal({
               <p>Avaliações</p>
 
               <Dialog.Root>
-                {session.status === "authenticated" ? (
+                {session.status === 'authenticated' ? (
                   <button onClick={() => setShowCommentArea(true)}>
                     Avaliar
                   </button>
@@ -215,7 +215,7 @@ export function SidePanelModal({
                         <strong>{bookRating.user.name}</strong>
                         <p>
                           {moment(new Date(bookRating.created_at))
-                            .locale("pt-br")
+                            .locale('pt-br')
                             .fromNow()}
                         </p>
                       </div>
@@ -226,11 +226,11 @@ export function SidePanelModal({
 
                   <p className="comment">{bookRating.description}</p>
                 </CommentItem>
-              );
+              )
             })}
           </CommentsSection>
         </Content>
       </Overlay>
     </Dialog.Portal>
-  );
+  )
 }

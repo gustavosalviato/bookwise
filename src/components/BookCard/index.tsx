@@ -1,10 +1,10 @@
-import Image from "next/image";
-import { RatingScore } from "../RatingScore/styles";
-import { BookCardContainer, CardBody } from "./styles";
-import { IBook } from "@/@types/IBooks";
+import Image from 'next/image'
+import { RatingScore } from '../RatingScore/styles'
+import { BookCardContainer, CardBody } from './styles'
+import { IBook } from '@/@types/IBooks'
 
 interface BookCarProps {
-  book: IBook;
+  book: IBook
 }
 
 export function BookCard({ book }: BookCarProps) {
@@ -24,5 +24,5 @@ export function BookCard({ book }: BookCarProps) {
         <RatingScore rating={book?.ratings[0]?.rate} />
       </CardBody>
     </BookCardContainer>
-  );
+  )
 }

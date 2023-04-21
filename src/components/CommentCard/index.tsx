@@ -1,23 +1,22 @@
-import Image from "next/image";
-import { RatingScore } from "../RatingScore/styles";
-import moment from "moment";
+import Image from 'next/image'
+import { RatingScore } from '../RatingScore/styles'
 import {
   CommentCardContainer,
   ProfileContainer,
   AvatarContainer,
   CardBody,
   BodyContent,
-} from "./styles";
-import { use, useState } from "react";
-import Link from "next/link";
-import { IRating } from "@/@types/IRatings";
+} from './styles'
+import { useState } from 'react'
+import Link from 'next/link'
+import { IRating } from '@/@types/IRatings'
 
 interface CommentCardProps {
-  rating: IRating;
+  rating: IRating
 }
 
 export function CommentCard({ rating }: CommentCardProps) {
-  const [readMore, setReadMore] = useState(false);
+  const [readMore, setReadMore] = useState(false)
 
   return (
     <CommentCardContainer>
@@ -52,13 +51,13 @@ export function CommentCard({ rating }: CommentCardProps) {
           <p>
             {readMore
               ? rating.description
-              : `${rating.description.substring(0, 150)}...`}{" "}
+              : `${rating.description.substring(0, 150)}...`}{' '}
             <button onClick={() => setReadMore(!readMore)}>
-              {readMore ? "ver menos" : "ver mais"}
+              {readMore ? 'ver menos' : 'ver mais'}
             </button>
           </p>
         </BodyContent>
       </CardBody>
     </CommentCardContainer>
-  );
+  )
 }

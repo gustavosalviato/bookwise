@@ -1,15 +1,15 @@
-import { prisma } from "@/libs/prisma";
-import type { NextApiRequest, NextApiResponse } from "next";
+import { prisma } from '@/libs/prisma'
+import type { NextApiRequest, NextApiResponse } from 'next'
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse
+  res: NextApiResponse,
 ) {
-  if (req.method !== "GET") {
-    return res.status(403).json({ message: "Method not allowed" });
+  if (req.method !== 'GET') {
+    return res.status(403).json({ message: 'Method not allowed' })
   }
 
-  const bookId = String(req.query.id);
+  const bookId = String(req.query.id)
 
   const booksRatings = await prisma.rating.findMany({
     where: {
@@ -24,7 +24,7 @@ export default async function handler(
         },
       },
     },
-  });
+  })
 
-  return res.json({ booksRatings });
+  return res.json({ booksRatings })
 }

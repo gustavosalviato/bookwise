@@ -1,14 +1,14 @@
-import { IRating } from "@/@types/IRatings";
-import { RatingScore } from "../RatingScore/styles";
+import { IRating } from '@/@types/IRatings'
+import { RatingScore } from '../RatingScore/styles'
 import {
   LastReadBookCardContainer,
   BookImage,
   LastReadBookCardBody,
   CardHeader,
-} from "./styles";
+} from './styles'
 
 interface LastReadBookCardProps {
-  rating: IRating;
+  rating: IRating
 }
 
 export function LastReadBookCard({ rating }: LastReadBookCardProps) {
@@ -29,5 +29,5 @@ export function LastReadBookCard({ rating }: LastReadBookCardProps) {
         <p>{`${rating.book.summary.substring(0, 55)}...`}</p>
       </LastReadBookCardBody>
     </LastReadBookCardContainer>
-  );
+  )
 }

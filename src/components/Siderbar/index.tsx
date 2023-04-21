@@ -1,11 +1,9 @@
-import { SidebarContainer, NavContainer } from "./styles";
-import Image from "next/image";
-import { ActiveLink } from "../ActiveLink";
-import { ChartLineUp, Binoculars, User } from "phosphor-react";
-import { SignInButton } from "../SignInButton";
-import { useSession } from "next-auth/react";
+import { SidebarContainer, NavContainer } from './styles'
+import Image from 'next/image'
+import { ActiveLink } from '../ActiveLink'
+import { ChartLineUp, Binoculars, User } from 'phosphor-react'
+import { SignInButton } from '../SignInButton'
 export function Sidebar() {
-  const session = useSession();
   return (
     <SidebarContainer>
       <div>
@@ -34,5 +32,5 @@ export function Sidebar() {
 
       <SignInButton />
     </SidebarContainer>
-  );
+  )
 }

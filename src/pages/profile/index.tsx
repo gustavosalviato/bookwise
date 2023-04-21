@@ -1,4 +1,4 @@
-import { Sidebar } from "@/components/Siderbar";
+import { Sidebar } from '@/components/Siderbar'
 import {
   ProfileContainer,
   ProfileScreenShape,
@@ -14,60 +14,58 @@ import {
   CardAnalytics,
   Divider,
   AnalyticsDetails,
-} from "../../styles/pages/profile";
-import Image from "next/image";
-import { User } from "phosphor-react";
-import { InputText } from "@/components/InputText";
-import { BookOpen } from "phosphor-react";
-import { api } from "@/libs/axios";
-import { GetServerSideProps } from "next";
-import { RatingScore } from "@/components/RatingScore/styles";
-import { Books, UserList, BookmarkSimple } from "phosphor-react";
-import { getSession } from "next-auth/react";
-import { useMemo, useState } from "react";
+} from '../../styles/pages/profile'
+import Image from 'next/image'
+import { User, BookOpen, Books, UserList, BookmarkSimple } from 'phosphor-react'
+import { InputText } from '@/components/InputText'
+import { api } from '@/libs/axios'
+import { GetServerSideProps } from 'next'
+import { RatingScore } from '@/components/RatingScore/styles'
+import { getSession } from 'next-auth/react'
+import { useMemo, useState } from 'react'
 interface IProfile {
-  name: string;
-  image: string;
-  readed_books: number;
-  total_readed_pages: number;
+  name: string
+  image: string
+  readed_books: number
+  total_readed_pages: number
   ratings: Array<{
-    id: string;
-    rate: number;
-    formattedDate: string;
-    categories: string[];
+    id: string
+    rate: number
+    formattedDate: string
+    categories: string[]
     book: {
-      id: string;
-      name: string;
-      author: string;
-      summary: string;
-      cover_url: string;
-      total_pages: number;
-    };
-  }>;
+      id: string
+      name: string
+      author: string
+      summary: string
+      cover_url: string
+      total_pages: number
+    }
+  }>
 }
 
 interface ProfileProps {
-  profileDetails: IProfile;
+  profileDetails: IProfile
 }
 export default function Profile({ profileDetails }: ProfileProps) {
   const { name, ratings, readed_books, total_readed_pages, image } =
-    profileDetails;
+    profileDetails
 
-  const [searchValue, setSearchValue] = useState("");
-  const [ratingsInfo, setRatingInfo] = useState(ratings);
+  const [searchValue, setSearchValue] = useState('')
+  const [ratingsInfo, setRatingInfo] = useState(ratings)
 
-  const searchValueLower = searchValue.toLowerCase();
+  const searchValueLower = searchValue.toLowerCase()
 
   const filteredRatings = useMemo(() => {
     return ratingsInfo.filter((rating) => {
-      const bookName = rating.book.name.toLowerCase();
-      const bookAuthor = rating.book.author.toLowerCase();
+      const bookName = rating.book.name.toLowerCase()
+      const bookAuthor = rating.book.author.toLowerCase()
       return (
         bookName.includes(searchValueLower) ||
         bookAuthor.includes(searchValueLower)
-      );
-    });
-  }, [searchValueLower]);
+      )
+    })
+  }, [searchValueLower])
   return (
     <ProfileContainer>
       <ProfileScreenShape>
@@ -155,17 +153,17 @@ export default function Profile({ profileDetails }: ProfileProps) {
         </AnalyticsSection>
       </ProfileScreenShape>
     </ProfileContainer>
-  );
+  )
 }
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const session = await getSession(ctx);
+  const session = await getSession(ctx)
 
-  const response = await api.get(`/users/ratings/${session?.user.id}`);
+  const response = await api.get(`/users/ratings/${session?.user.id}`)
 
   return {
     props: {
       profileDetails: response.data,
     },
-  };
-};
+  }
+}

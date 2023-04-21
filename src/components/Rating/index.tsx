@@ -1,24 +1,23 @@
-import { Star } from "phosphor-react";
-import { useState } from "react";
+import { Star } from 'phosphor-react'
+import { useState } from 'react'
 
 interface RatingProps {
-  size: number;
-  rating: number;
-  onRating: (rating: number) => void;
+  size: number
+  rating: number
+  onRating: (rating: number) => void
 }
 
 export function Rating({ rating, size, onRating }: RatingProps) {
-  const [hoverRating, setHoverRating] = useState(0);
-
+  const [hoverRating, setHoverRating] = useState(0)
 
   function getColor(el: number): string {
     if (hoverRating >= el) {
-      return "#8381D9";
+      return '#8381D9'
     } else if (!hoverRating && rating >= el) {
-      return "#8381D9";
+      return '#8381D9'
     }
 
-    return "#0E1116";
+    return '#0E1116'
   }
   return (
     <div>
@@ -34,8 +33,8 @@ export function Rating({ rating, size, onRating }: RatingProps) {
             onMouseLeave={() => setHoverRating(0)}
             color={getColor(el)}
           />
-        );
+        )
       })}
     </div>
-  );
+  )
 }
